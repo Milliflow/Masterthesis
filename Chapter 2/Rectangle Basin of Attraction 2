@@ -1,0 +1,85 @@
+n1 = 15;
+n2 = 15;
+x = zeros(n1,n2);
+dt = 0.005;
+T = 30000;
+Test = 10;
+c = zeros(5,5);
+for t = 1:Test
+    for Stat = 1:1000
+        x = 2*pi*(rand(n1,n2)-0.5);
+        x = dyKuramoto(x,t-1,dt,T); % Simulation
+        xend = x;
+        q = zeros([0,n2]);
+        p = zeros([0,n1]);
+        for j = 1:n2
+            q(j) = mod(pi+x(1,j)-x(n1,j),2*pi)-pi;
+            for i = 1:n1-1
+                q(j) = q(j)+mod(pi+x(i+1,j)-x(i,j),2*pi)-pi; % Detection
+            end
+        end
+        for j = 1:n1
+            p(j) = mod(pi+x(j,1)-x(j,n2),2*pi)-pi;
+            for i = 1:n2-1
+                p(j) = p(j)+mod(pi+x(j,i+1)-x(j,i),2*pi)-pi; % Detection
+            end
+        end
+        q = q./(2*pi);
+        p = p./(2*pi);
+        for j1 = 0:4
+            qtrue = true;
+            for i = 1:n2
+                if abs(abs(q(i))-j1)>0.4
+                    qtrue = false;
+                end
+            end
+            if qtrue
+                for j2 = 0:4
+                    ptrue = true;
+                    for i = 1:n1
+                        if abs(abs(p(i))-j2)>0.4
+                            ptrue = false;
+                        end
+                    end
+                    if ptrue
+                        c(j1+1,j2+1) = c(j1+1,j2+1)+1;
+                    end
+                end
+            end
+        end
+        disp(c./Stat);
+    end
+end
+disp(c);
+
+function y = dyKuramoto(x,lambda,dt,T)
+    %x = x';
+    sz = size(x);
+    n = sz(1);
+    k = sz(2);
+    yalt = [x; x];
+    yneu = yalt;
+    for t = 1:T
+        for i = 1:n
+            for j = 1:k
+                yneu(i,j) = yneu(i,j)+dt*(sin(yalt(i+1,j)-yalt(i,j))+sin(yalt(i+n-1,j)-yalt(i,j)));
+            end
+            for j = 1:lambda
+                for l = 1:k
+                    for m = 1:k
+                        if true % set this line to m ~= l if you want to explore the multiple ring networks from chapter 4; however, the effect seems to be marginal
+                            yneu(i,l) = yneu(i,l)+dt*(sin(yalt(i+j,m)-yalt(i,l))+sin(yalt(i+n-j,m)-yalt(i,l)));
+                        end
+                    end
+                end
+            end                                                 
+        end
+        for i = 1:k
+            yalt(:,i) = [yneu(1:n,i); yneu(1:n,i)];
+        end
+    end
+    y = yneu(1:n,1);
+    for i = 2:k
+        y = [y yneu(1:n,i)];
+    end
+end
