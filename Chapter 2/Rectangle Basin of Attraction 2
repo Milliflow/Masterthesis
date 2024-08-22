@@ -4,8 +4,8 @@ x = zeros(n1,n2);
 dt = 0.005;
 T = 30000;
 Test = 10;
-c = zeros(5,5);
-for t = 1:Test
+c = zeros(5,5,Test-1);
+for t = 2:Test % for t = 1 all rings will be independent -> random twists -> programm not suited for this
     for Stat = 1:1000
         x = 2*pi*(rand(n1,n2)-0.5);
         x = dyKuramoto(x,t-1,dt,T); % Simulation
@@ -42,18 +42,17 @@ for t = 1:Test
                         end
                     end
                     if ptrue
-                        c(j1+1,j2+1) = c(j1+1,j2+1)+1;
+                        c(j1+1,j2+1,t-1) = c(j1+1,j2+1,t-1)+1;
                     end
                 end
             end
         end
-        disp(c./Stat);
+        disp(c(:,:,t-1)./Stat);
     end
 end
 disp(c);
 
 function y = dyKuramoto(x,lambda,dt,T)
-    %x = x';
     sz = size(x);
     n = sz(1);
     k = sz(2);
