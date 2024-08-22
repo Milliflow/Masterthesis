@@ -7,7 +7,6 @@ n2 = 20; % resolution of y-axis
 x = zeros(n1,n2);
 dt = 0.005; % step-width
 T = 300000; % number of steps
-Test = 2;
 c = zeros(5,5); % stores the end configuration
 for Stat = 1:100
     x = rand(n1,n2); 
