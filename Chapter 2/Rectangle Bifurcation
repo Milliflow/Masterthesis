@@ -54,6 +54,8 @@ for i = 1:m
         end
     end
 end
+A = A';
+B = B';
 cmap = zeros(10, 3);
 cmap = [0, 1, 0; ...   % Green for 1 -> stable region
   1, 1, 0; ...       % Yellow for 2 -> bifurcation region
