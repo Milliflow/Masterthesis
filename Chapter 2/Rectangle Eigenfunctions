@@ -53,7 +53,8 @@ for i = 1:m
         end
     end
 end
-B=D;
+A = A';
+B = D';
 cmap = zeros(10, 6);
 cmap = [1, 0, 0; ...   % Red for 0
   0, 0.8, 0; ...       % lightgreen 1
