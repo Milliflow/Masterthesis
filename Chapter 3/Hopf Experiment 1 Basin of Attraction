@@ -5,18 +5,18 @@ T = 30000;
 Test = 10;
 c = zeros(5,Test);
 for t = 0:Test-1
-    for Stat = 1:10000
+    for Stat = 1:1000
         x = 2*pi*(rand(n,1)-0.5);
-        x = dyKuramoto(x,t-1,dt,T); % Simulation
+        x = dyKuramoto(x,t,dt,T); % Simulation
         q = 0;
         q = mod(pi+x(1)-x(n),2*pi)-pi;
         for i = 1:n-1
-            q = q+mod(pi+x(i+1)-x(i),2*pi)-pi; % Detection
+            q = q+mod(pi+x(i+1)-x(i),2*pi)-pi; % Detektion
         end
         q = q/(2*pi);
-        for j = 0:4
-            if abs(abs(q)-j)<0.4
-                c(j+1,t+1) = c(j+1,t+1)+1;
+        for j1 = 0:4
+            if abs(abs(q)-j1)<0.4
+                c(j1+1,t+1) = c(j1+1,t+1)+1;
             end
         end
         disp(c(:,t+1)./Stat);
@@ -27,6 +27,7 @@ for i = 1:5
     plot(c(i,:));
     hold 'on';
 end
+hold 'off';
 
 function y = dyKuramoto(x,lambda,dt,T)
     yalt = [x x];
@@ -36,7 +37,7 @@ function y = dyKuramoto(x,lambda,dt,T)
         for i = 1:length(x)
             yneu(i) = yneu(i)+dt*(sin(yalt(i+1)-yalt(i))+sin(yalt(i+n-1)-yalt(i)));
             for j = 1:lambda
-                yneu(i) = yneu(i)+dt*(sin(yalt(i+j)-yalt(i))+sin(yalt(i+n-j)-yalt(i)));
+                yneu(i) = yneu(i)+dt*(sin(yalt(i+j)-yalt(i))-sin(yalt(i+n-j)-yalt(i)));
             end
         end
         yalt = [yneu(1:length(x)) yneu(1:length(x))];
