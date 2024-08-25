@@ -1,4 +1,4 @@
-q = [3];
+q = [1];
 m = 1000;
 A=zeros(m,m);
 n = 20;
@@ -96,9 +96,9 @@ function v = V(r,k)
     v = 2;
     for i=1:length(k)
         if k(i) == 0
-            v_i = 2*r(i);
+            v_i = r(i)/pi;
         else
-            v_i = 2*sin(k(i)*r(i))/k(i);
+            v_i = sin(k(i)*r(i))/(pi*k(i));
         end
         v = v*v_i;
     end
