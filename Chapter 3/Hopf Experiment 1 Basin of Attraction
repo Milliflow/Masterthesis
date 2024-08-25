@@ -11,12 +11,12 @@ for t = 0:Test-1
         q = 0;
         q = mod(pi+x(1)-x(n),2*pi)-pi;
         for i = 1:n-1
-            q = q+mod(pi+x(i+1)-x(i),2*pi)-pi; % Detektion
+            q = q+mod(pi+x(i+1)-x(i),2*pi)-pi; % Detection
         end
         q = q/(2*pi);
-        for j1 = 0:4
-            if abs(abs(q)-j1)<0.4
-                c(j1+1,t+1) = c(j1+1,t+1)+1;
+        for j = 0:4
+            if abs(abs(q)-j)<0.4
+                c(j+1,t+1) = c(j+1,t+1)+1;
             end
         end
         disp(c(:,t+1)./Stat);
@@ -34,7 +34,10 @@ function y = dyKuramoto(x,lambda,dt,T)
     n = length(x);
     for t = 1:T
         for i = 1:length(x)
-            yneu(i) = yneu(i)+dt*(sin(yalt(i+1)-yalt(i))+sin(yalt(i+n-1)-yalt(i))-lambda*sin(yalt(i+1)-yalt(i))+lambda*sin(yalt(i+n-1)-yalt(i)));
+            yneu(i) = yneu(i)+dt*(sin(yalt(i+1)-yalt(i))+sin(yalt(i+n-1)-yalt(i)));
+            for j = 1:lambda
+                yneu(i) = yneu(i)+dt*(sin(yalt(i+j)-yalt(i))+sin(yalt(i+n-j)-yalt(i)));
+            end
         end
         yalt = [yneu(1:length(x)) yneu(1:length(x))];
     end
