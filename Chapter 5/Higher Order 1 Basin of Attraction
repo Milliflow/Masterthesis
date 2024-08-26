@@ -1,0 +1,53 @@
+n = 20;
+V = zeros([1 n]);
+x = zeros([1 n]);
+dt = 0.005;
+T = 30000;
+Test = 11;
+c = zeros(6,Test+1); % chimera states in c(6,:)
+for t = 0:Test
+    for Stat = 1:10000
+        x = 2*pi*(rand(n,1)-0.5); %q=0: 0.54 (bestätigt),0.54 (bestätigt),0.48 (bestätigt),0.44 (bestätigt!), q=1: 0.44, 0.44, 0.4, 0.38, q=2: 0.33 ///CHANGE: Higher Order 2: q=0: 0.54, 0.56, 0.59, 0.57, q=1: 0.44 , 0.38 , 0.34, 0.34, q=2: 0.33   
+        x = dyKuramoto(x,t,dt,T);
+        xend = x;
+        qvec = zeros([1,n]);
+        q = 0;
+        qvec(n) = mod(pi+x(1)-x(n),2*pi)-pi;
+        for i = 1:n-1
+            qvec(i) = q+mod(pi+x(i+1)-x(i),2*pi)-pi;%Detektion
+        end
+        q = sum(qvec)/(2*pi);
+        chimera = false;
+        for i=1:n
+            if abs(q-n*qvec(i)/(2*pi))>0.1
+                chimera = true;
+            end
+        end
+        for j = 0:4
+            if abs(abs(q)-j)<0.4 && chimera == false
+                c(j+1,t+1) = c(j+1,t+1)+1;
+            end
+        end
+        if chimera == true
+            c(6,t)=c(6,t+1)+1;
+        end
+        disp(c(:,t+1)/Stat);
+    end
+end
+disp(c);
+for i = 1:length(c)
+    plot(i,c(i));
+end
+
+function y = dyKuramoto(x,lambda,dt,T)
+    yalt = [x x];
+    yneu = yalt;
+    n = length(x);
+    for t = 1:T
+        for i = 1:n
+            yneu(i) = yneu(i)+dt*(sin(yalt(i+1)-yalt(i))+sin(yalt(i+n-1)-yalt(i))+lambda*(2*sin(yalt(i+1)-yalt(i))+2*sin(yalt(i+n-1)-yalt(i))+2*sin(yalt(i+1)+yalt(i+n-1)-2*yalt(i))+sin(2*yalt(i+1)-2*yalt(i))+sin(2*yalt(i+n-1)-2*yalt(i))));
+        end
+        yalt = [yneu(1:n) yneu(1:n)];
+    end
+    y = yneu(1:n);
+end
