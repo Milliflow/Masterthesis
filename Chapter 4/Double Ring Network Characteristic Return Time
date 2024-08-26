@@ -1,20 +1,20 @@
 q = 1;
 r = [pi/3 pi/3];
-a = 0;
-b = 0;
-for i = 1:400
-    x = i/100;
-    k = -5;
-    a(i) = max(real(Tra(q,k,x)/2+sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))),real(Tra(q,k,x)/2-sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))));
-    b(i) = max(real(Tra(0,k,x)/2+sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))),real(Tra(0,k,x)/2-sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))));
-    for k = -5:5
-        achallenger = max(real(Tra(q,k,x)/2+sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))),real(Tra(q,k,x)/2-sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))));
-        bchallenger = max(real(Tra(0,k,x)/2+sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))),real(Tra(0,k,x)/2-sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))));
+a=0;
+b=0;
+for i=1:400
+    x=i/100;
+    k = 1;
+    a(i)=max(real(Tra(q,k,x)/2+sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))),real(Tra(q,k,x)/2-sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))));
+    b(i)=max(real(Tra(0,k,x)/2+sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))),real(Tra(0,k,x)/2-sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))));
+    for k = 2:5
+        achallenger=max(real(Tra(q,k,x)/2+sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))),real(Tra(q,k,x)/2-sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))));
+        bchallenger=max(real(Tra(0,k,x)/2+sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))),real(Tra(0,k,x)/2-sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))));
         if a(i) < achallenger && k~=0
-            a(i) = achallenger;
+            a(i)=achallenger;
         end
         if b(i) < bchallenger && k~=0
-            b(i) = bchallenger;
+            b(i)=bchallenger;
         end
     end
 end
@@ -23,6 +23,7 @@ xt = get(gca, 'XTick');
 set(gca, 'XTick', xt, 'XTickLabel', xt/100)
 xlabel("r_{1,2}");
 ylabel("quotient");
+title("Double Ring Network Characteristic Return Time quotient");
 
 
 function tr = Tra(q,k,x)
