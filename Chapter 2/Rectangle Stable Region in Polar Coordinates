@@ -1,11 +1,10 @@
 n = 1000;
-m = 30;
 q = [1 1];
 r = zeros(1,n);
 positive = false;
 for phi = 1:n
     r(phi) = 0.69*pi;
-    for j = 1:m
+    for j = 1:30
         rgeo = r(phi)*[cos(pi*phi/(2*n)) sin(pi*phi/(2*n))];
         positive = false;
         for a = -10:10
@@ -21,21 +20,6 @@ for phi = 1:n
             r(phi) = r(phi)-pi*2^(-j-1);
         else
             r(phi) = r(phi)+pi*2^(-j-1);
-        end
-    end
-end
-kMax = zeros(1,n);
-A = -ones(1,n);
-for phi = 1:n
-    rgeo = r(phi)*[sin(pi*phi/(2*n)) cos(pi*phi/(2*n))];
-    for a = -10:10
-        for b = 0:10
-            k = [a b];
-            c1 = c1Calc(q,k,rgeo);
-            if c1 > A(phi)
-                A(phi) = c1;
-                kMax(phi) = 10*a+b;
-            end
         end
     end
 end
