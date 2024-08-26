@@ -22,7 +22,7 @@ plot(a./b);
 xt = get(gca, 'XTick');
 set(gca, 'XTick', xt, 'XTickLabel', xt/100)
 xlabel("r_{1,2}");
-ylabel("quotient")
+ylabel("quotient");
 
 
 function tr = Tra(q,k,x)
