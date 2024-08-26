@@ -1,7 +1,9 @@
 % blue is the stable, yellow the instable region; to get the colours from
-% the thesis type in the shell colormap(cmap)
+% the thesis for q = [1 1] and q = [2 3] type colormap(cmap); please note that
+% this colormap is not yet suited for the occurence of supercritical
+% bifurcations, in the case other q are choosen
 
-q = [1 1]; % twist
+q = [1 1];
 m = 1000; % resolution
 A=zeros(m,m); % stores eigenvalues above 0
 n = 10; % number of analyzed eigenfunctions
@@ -30,7 +32,7 @@ for i = 1:m
                 if A(i-5,j-5)==0 && B(i,j)>0
                     B(i,j)=2;
                 elseif A(i-5,j-5)==0
-                    B(i,j)=4; % this case will never occur
+                    B(i,j)=4;
                 else
                     B(i,j)=3;
                 end
@@ -38,7 +40,7 @@ for i = 1:m
                 if A(i,j-5)==0 && B(i,j)>0
                     B(i,j)=2;
                 elseif A(i,j-5)==0
-                    B(i,j)=4; % this case will never occur
+                    B(i,j)=4;
                 else
                     B(i,j)=3;
                 end
@@ -46,7 +48,7 @@ for i = 1:m
                 if A(i-5,j)==0 && B(i,j)>0
                     B(i,j)=2;
                 elseif A(i-5,j)==0
-                    B(i,j)=4; % this case will never occur
+                    B(i,j)=4;
                 else
                     B(i,j)=3;
                 end
