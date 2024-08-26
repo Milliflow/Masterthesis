@@ -1,0 +1,65 @@
+n1 = 20;
+n2 = 2;
+x = zeros(n1,2);
+dt = 0.005;
+T = 30000;
+Test = 10;
+c = zeros(5,Test-1);
+for t = 1:Test % for t = 1 all rings will be independent -> random twists -> programm not suited for this
+    for Stat = 1:1000
+        x = 2*pi*(rand(n1,2)-0.5);
+        x = dyKuramoto(x,t,dt,T); % Simulation
+        xend = x;
+        q = zeros([0,2]);
+        for j = 1:2
+            q(j) = mod(pi+x(1,j)-x(n1,j),2*pi)-pi;
+            for i = 1:n1-1
+                q(j) = q(j)+mod(pi+x(i+1,j)-x(i,j),2*pi)-pi; % Detection
+            end
+        end
+        q = q./(2*pi);
+        for j = 0:4
+            qtrue = true;
+            for i = 1:2
+                if abs(abs(q(i))-j)>0.4
+                    qtrue = false;
+                end
+            end
+            if qtrue
+                c(j+1,t) = c(j+1,t)+1;
+            end
+        end
+        disp(c(:,t)./Stat);
+    end
+end
+disp(c);
+
+function y = dyKuramoto(x,lambda,dt,T)
+    sz = size(x);
+    n = sz(1);
+    yalt = [x; x];
+    yneu = yalt;
+    for t = 1:T
+        for i = 1:n
+            for j = 1:2
+                yneu(i,j) = yneu(i,j)+dt*(sin(yalt(i+1,j)-yalt(i,j))+sin(yalt(i+n-1,j)-yalt(i,j)));
+            end
+            for j = 1:lambda
+                for l = 1:2
+                    for m = 1:2
+                        if m ~= l
+                            yneu(i,l) = yneu(i,l)+dt*(sin(yalt(i+j,m)-yalt(i,l))+sin(yalt(i+n-j,m)-yalt(i,l)));
+                        end
+                    end
+                end
+            end                                                 
+        end
+        for i = 1:2
+            yalt(:,i) = [yneu(1:n,i); yneu(1:n,i)];
+        end
+    end
+    y = yneu(1:n,1);
+    for i = 1:2
+        y = [y yneu(1:n,i)];
+    end
+end
