@@ -66,7 +66,7 @@ imagesc([0,pi],[0,pi],B);
 xlabel("r_1");
 ylabel("r_2");
 ax.YDir = "normal";
-title('Largest c1 greater than zero?');
+title('Bifurcation Portrait');
 C = cmap();
 L = size(C,1);
 Gs = round(interp1(linspace(min(B(:)),max(B(:)),L),1:L,B));
