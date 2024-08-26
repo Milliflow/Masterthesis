@@ -1,0 +1,65 @@
+q = 1;
+r = [pi/3 pi/3];
+a=0;
+b=0;
+for i=1:400
+    x=i/100;
+    k = -5;
+    a(i)=max(real(Tra(q,k,x)/2+sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))),real(Tra(q,k,x)/2-sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))));
+    b(i)=max(real(Tra(0,k,x)/2+sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))),real(Tra(0,k,x)/2-sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))));
+    for k = -5:5
+        achallenger=max(real(Tra(q,k,x)/2+sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))),real(Tra(q,k,x)/2-sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))));
+        bchallenger=max(real(Tra(0,k,x)/2+sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))),real(Tra(0,k,x)/2-sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))));
+        if a(i) < achallenger && k~=0
+            a(i)=achallenger;
+        end
+        if b(i) < bchallenger && k~=0
+            b(i)=bchallenger;
+        end
+    end
+end
+plot(a./b);
+xt = get(gca, 'XTick');
+set(gca, 'XTick', xt, 'XTickLabel', xt/100)
+xlabel("r_{1,2}");
+ylabel("quotient")
+
+
+function tr = Tra(q,k,x)
+    tr = C1(q,k,pi/3)+C1(q,k,pi/3)-2*V(x,q);
+end
+
+function det = Dete(q,k,x)
+    det = (C1(q,k,pi/3)-V(x,q))*(C1(q,k,pi/3)-V(x,q))-((V(x,q-k)+V(x,q+k))^2)/4;
+end
+
+function v = V(r,k)
+% V Calculates the fourier coefficient for the given values
+    v = 1;
+    for i=1:length(k)
+        if k(i) == 0
+            v_i = 2*r(i);
+        else
+            v_i = 2*sin(k(i)*r(i))/k(i);
+        end
+        v = v*v_i;
+    end
+    v = pi*v;
+end
+
+function c1 = C1(q,k,r)
+    c1 = (2*pi)^length(r)*[V1(r,q+k)+V1(r,q-k)-2*V1(r,q)]/4;
+end
+
+function v = V1(r,k)
+% V Calculates the fourier coefficient for the given values
+    v = 2;
+    for i=1:length(k)
+        if k(i) == 0
+            v_i = r(i)/pi;
+        else
+            v_i = sin(k(i)*r(i))/(pi*k(i));
+        end
+        v = v*v_i;
+    end
+end
