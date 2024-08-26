@@ -60,7 +60,7 @@ ylabel("\lambda");
 ylim([-1.5,7.5]);
 yticklabels({'-2','-1','0','1','2','3','4','5','6'});
 ax.YDir = "normal";
-title('Bifurcation Potrait');
+title('Bifurcation Portrait');
 %C = colormap();
 C = cmap();
 L = size(C,1);
