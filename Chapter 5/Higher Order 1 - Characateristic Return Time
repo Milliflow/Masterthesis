@@ -37,9 +37,9 @@ function v = V(r,k)
     v = 2;
     for i=1:length(k)
         if k(i) == 0
-            v_i = r(i);
+            v_i = r(i)/pi;
         else
-            v_i = sin(k(i)*r(i))/k(i);
+            v_i = sin(k(i)*r(i))/(pi*k(i));
         end
         v = v*v_i;
     end
