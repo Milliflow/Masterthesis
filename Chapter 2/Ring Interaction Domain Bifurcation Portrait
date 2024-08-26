@@ -87,7 +87,7 @@ imagesc([0,pi],[0,pi],B);
 xlabel("r_1");
 ylabel("r_2");
 ax.YDir = "normal";
-title('Largest c1 greater than zero?')
+title('Bifurcation Portrait')
 cmap = zeros(10, 4);
 cmap = [0, 0, 0; ...
   0, 1, 0; ...   % Blue for 1
