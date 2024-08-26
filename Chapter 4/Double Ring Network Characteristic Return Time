@@ -10,10 +10,10 @@ for i=1:400
     for k = 2:5
         achallenger=max(real(Tra(q,k,x)/2+sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))),real(Tra(q,k,x)/2-sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))));
         bchallenger=max(real(Tra(0,k,x)/2+sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))),real(Tra(0,k,x)/2-sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))));
-        if a(i) < achallenger && k~=0
+        if a(i) < achallenger
             a(i)=achallenger;
         end
-        if b(i) < bchallenger && k~=0
+        if b(i) < bchallenger
             b(i)=bchallenger;
         end
     end
