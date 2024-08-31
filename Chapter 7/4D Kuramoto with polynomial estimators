@@ -1,0 +1,55 @@
+b = true;
+c = 0;
+d = 0;
+splaystate = 0;
+store = 0;
+for k = 1:10000
+    n = 4;
+    q = 0;
+    x = 2*pi*(rand(n-1,1)-0.5);
+    x(n) = -sum(x);
+    y = x;
+    for j = 1:30000
+         y = KurSchritt(0,y,0.005);
+    end
+    if max(y)>0.1
+        splaystate=splaystate+1;
+        %disp("Splaystate: "+splaystate/k);
+    end
+    a1 = KurSchritt(q,x,0.005);
+    a2 = KurSchritt(q,a1,0.005);
+    a3 = KurSchritt(q,a2,0.005);
+    z=(a1-x)'*x;
+    z1=(a2+x-2*a1)'*x-(a1-x)'*(a1-x);
+    %for m = 1:n
+    %    z=z-x(m)*((x(m)*x(m))*(a3(m)-3*a2(m)+3*a1(m)-x(m))-5*x(m)*((a1(m)-x(m))*(a2(m)+x(m)-2*a1(m)))+4*(a1(m)-x(m))*((a1(m)-x(m))*(a1(m)-x(m))));
+    %end
+    if z>0 || z1>0
+        c = c+1;
+        for j = 1:30000
+            x = KurSchritt(0,x,0.005);
+        end
+        if max(x)-min(x)<0.1
+            b = false;
+            d = d+1;
+        end
+        disp("Indicator positive: "+c/k);
+        disp("Failed: "+d/c);
+    end
+end
+
+function y = KurSchritt(q,x,dt)
+y = x;
+    if length(x)>2
+        for i = 2:length(x)-1
+            y(i) = x(i)+dt*(cos(2*pi*q/length(x))*(sin(x(i-1)-x(i))+sin(x(i+1)-x(i)))+sin(2*pi*q/length(x))*(-cos(x(i-1)-x(i))+cos(x(i+1)-x(i))));
+        end
+        y(1) = x(1)+dt*(cos(2*pi*q/length(x))*(sin(x(length(x))-x(1))+sin(x(2)-x(1)))+sin(2*pi*q/length(x))*(-cos(x(length(x))-x(1))+cos(x(2)-x(1))));
+        i = length(x);
+        y(length(x)) = x(i)+dt*(cos(2*pi*q/length(x))*(sin(x(i-1)-x(i))+sin(x(1)-x(i)))+sin(2*pi*q/length(x))*(-cos(x(i-1)-x(i))+cos(x(1)-x(i))));
+    elseif length(x) == 2
+        y(1) = x(1)+dt*(cos(2*pi*q/length(x))*(sin(x(length(x))-x(1))+sin(x(2)-x(1)))+sin(2*pi*q/length(x))*(-cos(x(length(x))-x(1))+cos(x(2)-x(1))));
+        i = length(x);
+        y(2) = x(2)+dt*(cos(2*pi*q/length(x))*(sin(x(i-1)-x(i))+sin(x(1)-x(i)))+sin(2*pi*q/length(x))*(-cos(x(i-1)-x(i))+cos(x(1)-x(i))));
+    end
+end
