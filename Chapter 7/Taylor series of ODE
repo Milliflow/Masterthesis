@@ -13,13 +13,13 @@ for i = 2:length(tay)
 end
 B=zeros(length(tay));
 
-B(1,:)=fold(fold(fold(A(1,:),A(1,:)),A(1,:)),A(1,:));
-B(2,:)=fold(fold(A(1,:),A(2,:)),A(1,:));
-B(3,:)=fold(A(2,:),A(2,:));
-B(4,:)=fold(A(1,:),A(3,:));
-B(5,:)=A(4,:);
-B(length(tay)-1,:)=fold(A(2,:),A(length(tay)-1,:));
-B(length(tay),:)=fold(A(1,:),A(length(tay),:));
+B(1,:) = fold(fold(A(1,:),A(1,:)),A(1,:));
+B(2,:) = fold(A(1,:),A(2,:));
+B(3,:) = A(3,:);
+%B(4,:) = fold(A(1,:),A(3,:));
+%B(5,:) = A(4,:);
+%B(length(tay)-1,:) = fold(A(2,:),A(length(tay)-1,:));
+%B(length(tay),:) = fold(A(1,:),A(length(tay),:));
 
 function f = fold(a,b)
     f = zeros(length(a),1);
