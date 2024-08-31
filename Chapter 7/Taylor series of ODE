@@ -1,0 +1,31 @@
+tay = [0 -1 0 1/6 0 -1/120 0 1/5040 0 -1/(9*40320) 0 1/(990*40320)];
+A = zeros(length(tay));
+A(1,:) = tay;
+for i = 2:length(tay)
+    z = A(i-1,:);
+    z = circshift(z,-1);
+    for n = 1:length(z)-1
+        z(n)=n*z(n);
+    end
+    z(length(z)) = 0;
+    z = fold(z,tay);
+    A(i,:) = z;
+end
+B=zeros(length(tay));
+
+B(1,:)=fold(fold(fold(A(1,:),A(1,:)),A(1,:)),A(1,:));
+B(2,:)=fold(fold(A(1,:),A(2,:)),A(1,:));
+B(3,:)=fold(A(2,:),A(2,:));
+B(4,:)=fold(A(1,:),A(3,:));
+B(5,:)=A(4,:);
+B(length(tay)-1,:)=fold(A(2,:),A(length(tay)-1,:));
+B(length(tay),:)=fold(A(1,:),A(length(tay),:));
+
+function f = fold(a,b)
+    f = zeros(length(a),1);
+    for i=1:length(a)
+        for j =1:i
+            f(i)=f(i)+a(j)*b(i-j+1);
+        end
+    end
+end
