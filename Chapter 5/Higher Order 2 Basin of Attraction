@@ -28,7 +28,7 @@ for t = 0:Test
             end
         end
         if chimera == true
-            c(6,t)=c(6,t+1)+1;
+            c(6,t+1)=c(6,t+1)+1;
         end
         disp(c(:,t+1)/Stat);
     end
