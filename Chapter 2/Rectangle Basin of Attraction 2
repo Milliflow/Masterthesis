@@ -4,8 +4,8 @@
 n1 = 15; % Nodes in x-direction
 n2 = 15; % Nodes in y-direction; if set to 1 the normal cyclic Kuramoto model should emerge
 x = zeros(n1,n2);
-dt = 0.005;
-T = 30000;
+dt = 0.005; % size of timestep
+T = 30000; % Number of timesteps: full runtime = dt*T
 Test = 10;
 c = zeros(5,5,Test); % stores the 2D-twist in the matrix where an (q,p)-twist is displayed at position (q+1,p+1) in the matrix
 for lambda = 1:Test % for t = 0 all rings will be independent -> random twists -> programm not suited for this
