@@ -1,10 +1,11 @@
-q = [1 1];
+% What happens here? We follow different eigenvalues along a straight line of the parameter r and plot their values.
+q = [1 1]; % twist
 k1 = [0 1];
 k2 = [1 1];
 k3 = [2 2];
 for i=1:1000
     x = i*pi/1000;
-    r = [x/2 x];
+    r = [x/2 x]; % the line r follows 
     y1(i) = C1(q,k1,r);
     y2(i) = C1(q,k2,r);
     y3(i) = C1(q,k3,r);
