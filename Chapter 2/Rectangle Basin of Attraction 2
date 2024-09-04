@@ -1,4 +1,4 @@
-% What happens here? This is a n1 x n2 discretization of the 2D-Kuramoto model, with a interaction domain of lambda x 2pi; the basin of attraction
+% What happens here? This is a n1 x n2 discretization of the 2D-Kuramoto model, with an interaction domain of lambda x 2pi; the basin of attraction
 % is calculated for each twist, stored in the matrix c and displayed during runtime. This program is unfortunately very slow.
 n1 = 15; % Nodes in x-direction
 n2 = 15; % Nodes in y-direction; if set to 1 the normal cyclic Kuramoto model should emerge
