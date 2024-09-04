@@ -8,7 +8,7 @@ T = 30000;
 Test = 10;
 c = zeros(5,5,Test); % stores the 2D-twist in the matrix where an (q,p)-twist is displayed at position (q+1,p+1) in the matrix
 for lambda = 1:Test % for t = 0 all rings will be independent -> random twists -> programm not suited for this
-    for Stat = 1:1000
+    for Stat = 1:100 % Number of runs
         x = 2*pi*(rand(n1,n2)-0.5); % Initialisation
         x = dyKuramoto(x,lambda,dt,T); % Simulation
         q = zeros([0,n2]); % twist in x-direction (may vary)
