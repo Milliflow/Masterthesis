@@ -63,9 +63,7 @@ function y = dyKuramoto(x,lambda,dt,T)
             for j = 1:lambda
                 for l = 1:k
                     for m = 1:k
-                        if true
-                            yneu(i,l) = yneu(i,l)+dt*(sin(yalt(i+j,m)-yalt(i,l))+sin(yalt(i+n-j,m)-yalt(i,l)));
-                        end
+                        yneu(i,l) = yneu(i,l)+dt*(sin(yalt(i+j,m)-yalt(i,l))+sin(yalt(i+n-j,m)-yalt(i,l)));
                     end
                 end
             end                                                 
