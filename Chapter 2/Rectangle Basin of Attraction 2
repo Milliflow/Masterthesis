@@ -44,12 +44,12 @@ for lambda = 1:Test % for t = 0 all rings will be independent -> random twists -
                         end
                     end
                     if ptrue
-                        c(j1+1,j2+1,t) = c(j1+1,j2+1,t)+1;
+                        c(j1+1,j2+1,lambda) = c(j1+1,j2+1,lambda)+1;
                     end
                 end
             end
         end
-        disp(c(:,:,t)./Stat); % Display of current basin of attraction calculations
+        disp(c(:,:,lambda)./Stat); % Display of current basin of attraction calculations
     end
 end
 disp(c);
