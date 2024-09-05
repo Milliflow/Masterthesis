@@ -35,13 +35,13 @@ function y = dyKuramoto(x,lambda,dt,T)
     yneu = yalt;
     n = length(x);
     for t = 1:T
-        for i = 1:length(x)
+        for i = 1:n
             yneu(i) = yneu(i)+dt*(sin(yalt(i+1)-yalt(i))+sin(yalt(i+n-1)-yalt(i)));
             for j = 1:lambda
                 yneu(i) = yneu(i)+dt*(sin(yalt(i+j)-yalt(i))-sin(yalt(i+n-j)-yalt(i)));
             end
         end
-        yalt = [yneu(1:length(x)) yneu(1:length(x))];
+        yalt = [yneu(1:n) yneu(1:n)];
     end
-    y = yneu(1:length(x));
+    y = yneu(1:n);
 end
