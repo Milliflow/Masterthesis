@@ -3,11 +3,11 @@ x = zeros([1 n]);
 dt = 0.005;
 T = 30000;
 Test = 10;
-c = zeros(5,Test);
-for t = 0:Test-1
+c = zeros(5,Test+1);
+for lambda = 0:Test
     for Stat = 1:1000
         x = 2*pi*(rand(n,1)-0.5);
-        x = dyKuramoto(x,t,dt,T); % Simulation
+        x = dyKuramoto(x,lambda,dt,T); % Simulation
         q = 0;
         q = mod(pi+x(1)-x(n),2*pi)-pi;
         for i = 1:n-1
@@ -16,13 +16,14 @@ for t = 0:Test-1
         q = q/(2*pi);
         for j1 = 0:4
             if abs(abs(q)-j1)<0.4
-                c(j1+1,t+1) = c(j1+1,t+1)+1;
+                c(j1+1,lambda+1) = c(j1+1,lambda+1)+1;
             end
         end
-        disp(c(:,t+1)./Stat);
+        disp(c(:,lambda+1)./Stat);
     end
 end
 disp(c);
+hold 'off';
 for i = 1:5
     plot(c(i,:));
     hold 'on';
