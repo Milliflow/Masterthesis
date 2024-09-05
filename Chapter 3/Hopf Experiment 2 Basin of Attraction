@@ -3,11 +3,11 @@ x = zeros([1 n]);
 dt = 0.005;
 T = 30000;
 Test = 10;
-c = zeros(5,Test);
-for t = 0:Test-1
+c = zeros(5,Test+1);
+for lambda = 0:Test
     for Stat = 1:10000
         x = 2*pi*(rand(n,1)-0.5);
-        x = dyKuramoto(x,t-1,dt,T); % Simulation
+        x = dyKuramoto(x,lambda,dt,T); % Simulation
         q = 0;
         q = mod(pi+x(1)-x(n),2*pi)-pi;
         for i = 1:n-1
@@ -16,27 +16,29 @@ for t = 0:Test-1
         q = q/(2*pi);
         for j = 0:4
             if abs(abs(q)-j)<0.4
-                c(j+1,t+1) = c(j+1,t+1)+1;
+                c(j+1,lambda+1) = c(j+1,lambda+1)+1;
             end
         end
-        disp(c(:,t+1)./Stat);
+        disp(c(:,lambda+1)./Stat);
     end
 end
 disp(c);
+hold 'off';
 for i = 1:5
     plot(c(i,:));
     hold 'on';
 end
+hold 'off';
 
 function y = dyKuramoto(x,lambda,dt,T)
     yalt = [x x];
     yneu = yalt;
     n = length(x);
     for t = 1:T
-        for i = 1:length(x)
+        for i = 1:n
             yneu(i) = yneu(i)+dt*(sin(yalt(i+1)-yalt(i))+sin(yalt(i+n-1)-yalt(i))-lambda*sin(yalt(i+1)-yalt(i))+lambda*sin(yalt(i+n-1)-yalt(i)));
         end
-        yalt = [yneu(1:length(x)) yneu(1:length(x))];
+        yalt = [yneu(1:n) yneu(1:n)];
     end
-    y = yneu(1:length(x));
+    y = yneu(1:n);
 end
