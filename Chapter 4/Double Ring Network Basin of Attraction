@@ -3,12 +3,11 @@ x = zeros(n,2);
 dt = 0.005;
 T = 30000;
 Test = 10;
-c = zeros(5,Test-1);
-for t = 1:Test % for t = 1 all rings will be independent -> random twists -> programm not suited for this
+c = zeros(5,Test);
+for lambda = 1:Test % for lambda = 1 all rings will be independent -> random twists -> programm not suited for this
     for Stat = 1:1000
         x = 2*pi*(rand(n,2)-0.5);
-        x = dyKuramoto(x,t,dt,T); % Simulation
-        xend = x;
+        x = dyKuramoto(x,lambda,dt,T); % Simulation
         q = zeros([0,2]);
         for j = 1:2
             q(j) = mod(pi+x(1,j)-x(n,j),2*pi)-pi;
@@ -25,10 +24,10 @@ for t = 1:Test % for t = 1 all rings will be independent -> random twists -> pro
                 end
             end
             if qtrue
-                c(j+1,t) = c(j+1,t)+1;
+                c(j+1,lambda) = c(j+1,lambda)+1;
             end
         end
-        disp(c(:,t)./Stat);
+        disp(c(:,lambda)./Stat);
     end
 end
 disp(c);
