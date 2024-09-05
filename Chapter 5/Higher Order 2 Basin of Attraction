@@ -2,41 +2,43 @@ n = 20;
 x = zeros([1 n]);
 dt = 0.005;
 T = 30000;
-Test = 11;
+Test = 10;
 c = zeros(6,Test+1); % chimera states in c(6,:)
-for t = 0:Test
+for lambda = 0:Test
     for Stat = 1:10000
         x = 2*pi*(rand(n,1)-0.5);
-        x = dyKuramoto(x,t,dt,T);
-        xend = x;
+        x = dyKuramoto(x,lambda,dt,T);
         qvec = zeros([1,n]);
         q = 0;
         qvec(n) = mod(pi+x(1)-x(n),2*pi)-pi;
         for i = 1:n-1
-            qvec(i) = q+mod(pi+x(i+1)-x(i),2*pi)-pi;%Detektion
+            qvec(i) = q+mod(pi+x(i+1)-x(i),2*pi)-pi; % Detektion
         end
         q = sum(qvec)/(2*pi);
         chimera = false;
-        for i=1:n
+        for i = 1:n
             if abs(q-n*qvec(i)/(2*pi))>0.1
                 chimera = true;
             end
         end
         for j = 0:4
             if abs(abs(q)-j)<0.4 && chimera == false
-                c(j+1,t+1) = c(j+1,t+1)+1;
+                c(j+1,lambda+1) = c(j+1,lambda+1)+1;
             end
         end
         if chimera == true
-            c(6,t+1)=c(6,t+1)+1;
+            c(6,lambda+1) = c(6,lambda+1)+1;
         end
-        disp(c(:,t+1)/Stat);
+        disp(c(:,lambda+1)/Stat);
     end
 end
 disp(c);
+hold 'off';
 for i = 1:length(c)
-    plot(i,c(i));
+    plot(c(i,:));
+    hold 'on';
 end
+hold 'off';
 
 function y = dyKuramoto(x,lambda,dt,T)
     yalt = [x x];
