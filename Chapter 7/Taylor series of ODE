@@ -1,5 +1,5 @@
 tay = [0 -1 0 1/6 0 -1/120 0 1/5040 0 -1/362880 0 1/39916800];
-A = zeros(length(tay));
+A = zeros(length(tay)); % stores the taylor coefficients of the derivatives
 A(1,:) = tay;
 for i = 2:length(tay)
     z = A(i-1,:);
@@ -11,13 +11,14 @@ for i = 2:length(tay)
     z = fold(z,tay);
     A(i,:) = z;
 end
-B = zeros(length(tay));
+B = zeros(length(tay)); % stores the taylor coefficients of the products of the derivatives
 
 B(1,:) = fold(fold(A(1,:),A(1,:)),A(1,:));
 B(2,:) = fold(A(1,:),A(2,:));
 B(3,:) = A(3,:);
 
 function f = fold(a,b)
+% Calculates the Cauchy product of two taylor series a and b
     f = zeros(length(a),1);
     for i=1:length(a)
         for j =1:i
