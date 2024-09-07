@@ -4,7 +4,7 @@ d = 0;
 splaystate = 0;
 T = 30000;
 dt = 0.005;
-for k = 1:10000
+for Stat = 1:10000
     x = 2*pi*(rand(n-1,1)-0.5);
     x = [x; -sum(x)]; % To ensure that the configuration can converge towards [0 0 ... 0]
     y = x;
@@ -17,21 +17,21 @@ for k = 1:10000
     a1 = KurSchritt(x,dt);
     a2 = KurSchritt(a1,dt);
     a3 = KurSchritt(a2,dt);
-    d1 = a1-x;
-    d2 = a2+x-2*a1;
-    p1 = d1'*x;
-    p2 = d2'*x-d1'*d1;
-    p3 = 0;
+    d1 = a1-x; % Approximation of first derivative
+    d2 = a2+x-2*a1; % Approximation of second derivative
+    p1 = d1'*x; % First Indicator
+    p2 = d2'*x-d1'*d1; % Second Indicator
+    p3 = 0; % Third Indicator
     for m = 1:n
         p3 = p3+x(m)*((x(m)*x(m))*(a3(m)-3*a2(m)+3*a1(m)-x(m))-5*x(m)*((a1(m)-x(m))*(a2(m)+x(m)-2*a1(m)))+4*(a1(m)-x(m))*((a1(m)-x(m))*(a1(m)-x(m))));
     end
-    if p1>0 || p2>0 || p3>0
+    if p1>0 || p2>0 || p3>0 % Set here your custom mix of Indicators
         c = c+1;
         if max(y)<0.1
             d = d+1;
         end
-        disp("Splaystate probability: "+splaystate/k);
-        disp("Indicator positive: "+c/k);
+        disp("Splaystate probability: "+splaystate/Stat);
+        disp("Indicator positive: "+c/Stat);
         disp("Failed: "+d/c);
     end
 end
