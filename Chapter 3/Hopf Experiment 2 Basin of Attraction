@@ -7,11 +7,11 @@ c = zeros(5,Test+1);
 for lambda = 0:Test
     for Stat = 1:10000
         x = 2*pi*(rand(n,1)-0.5);
-        x = dyKuramoto(x,lambda,dt,T); % Simulation
+        x = dyKuramoto(x,lambda,dt,T); % simulation
         q = 0;
         q = mod(pi+x(1)-x(n),2*pi)-pi;
         for i = 1:n-1
-            q = q+mod(pi+x(i+1)-x(i),2*pi)-pi; % Detektion
+            q = q+mod(pi+x(i+1)-x(i),2*pi)-pi; % detection
         end
         q = q/(2*pi);
         for j = 0:4
