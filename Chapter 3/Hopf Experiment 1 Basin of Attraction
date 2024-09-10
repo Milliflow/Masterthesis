@@ -14,9 +14,9 @@ for lambda = 0:Test
             q = q+mod(pi+x(i+1)-x(i),2*pi)-pi; % detection
         end
         q = q/(2*pi);
-        for j1 = 0:4
-            if abs(abs(q)-j1)<0.4
-                c(j1+1,lambda+1) = c(j1+1,lambda+1)+1;
+        for j = 0:4
+            if abs(abs(q)-j)<0.4
+                c(j+1,lambda+1) = c(j+1,lambda+1)+1;
             end
         end
         disp(c(:,lambda+1)./Stat);
