@@ -1,12 +1,11 @@
 q = [1];
 m = 1000;
-A=zeros(m,m);
+A = zeros(m,m);
 n = 10;
 B = A;
-for i=1:m
-    for j=1:m
-        for k1=0:n
-            k = [k1];
+for i = 1:m
+    for j = 1:m
+        for k = 0:n
             r = [pi*j/m pi*i/m];
             z = c1Calc(q,k,r(1));
             if z>0 && A(i,j)==0
@@ -19,28 +18,28 @@ for i=1:m
 end
 for i = 1:m
     for j = 6:m
-        if A(i,j)~0
-            if A(i,j-5)==0 && B(i,j)<0
-                B(i,j)=2;
-                %B(i,j)=1;
-            elseif A(i,j-5)==0 && B(i,j)>0
-                B(i,j)=4;
+        if A(i,j) ~ 0
+            if A(i,j-5) == 0 && B(i,j)<0
+                B(i,j) = 2;
+                %B(i,j) = 1;
+            elseif A(i,j-5) == 0 && B(i,j)>0
+                B(i,j) = 4;
             else
-                B(i,j)=0;
+                B(i,j) = 0;
             end
         end
     end
 end
 for i = 1:m
     for j = 1:m
-        if B(i,j)==2
-            B(i,j)=2;
-        elseif B(i,j)==4
-            B(i,j)=4;
-        elseif A(i,j)==0
-            B(i,j)=1;
+        if B(i,j) == 2
+            B(i,j) = 2;
+        elseif B(i,j) == 4
+            B(i,j) = 4;
+        elseif A(i,j) == 0
+            B(i,j) = 1;
         else
-            B(i,j)=3;
+            B(i,j) = 3;
         end
     end
 end
@@ -69,7 +68,7 @@ imshow(B, cmap);
 function v = Vexp(k,r)
 % V Calculates the exp-fourier coefficient for the given values
     if k ~ 0
-        v=2*sin(k*r(1))/k+(exp(1i*k*r(2))+exp(-1i*k*r(2))-2)/(1i*k);
+        v = 2*sin(k*r(1))/k+(exp(1i*k*r(2))+exp(-1i*k*r(2))-2)/(1i*k);
     else
         v = 2*r(2);
     end
@@ -77,7 +76,7 @@ end
 function v = Vsin(k,r)
 % V Calculates the sin-fourier coefficient for the given values
     if k ~ 0
-        v=(2-2*cos(k*r(2)))/(pi*k);
+        v = (2-2*cos(k*r(2)))/(pi*k);
     else
         v = 0;
     end
@@ -90,7 +89,7 @@ end
 function v = V(r,k)
 % V Calculates the fourier coefficient for the given values
     v = 2;
-    for i=1:length(k)
+    for i = 1:length(k)
         if k(i) == 0
             v_i = r(i)/pi;
         else
