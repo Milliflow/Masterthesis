@@ -5,7 +5,7 @@ for i = 1:400
     k = 1;
     a(i) = (1+2*pi*x*V(r,q))*C1(q,1,r); % stores the highest eigenvalue for the q-twist
     b(i) = (1+2*pi*x*V(r,0))*C1(0,1,r); % stores the highest eigenvalue for the 0-twist
-    for k = 2:5
+    for k = 2:5 % iterates through several k's to find the highest eigenvalue
         achallenger = (1+2*pi*x*V(r,q))*C1(q,k,r);
         bchallenger = (1+2*pi*x*V(r,0))*C1(0,k,r);
         if a(i) < achallenger
