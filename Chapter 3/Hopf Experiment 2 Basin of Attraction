@@ -1,6 +1,6 @@
 % What happens here? An assymetric domain is added to the normal nearest neighbour interaction domain, which grows in strength (but
 % the number of nodes interacting with each other remains equal).
-% The size of the sync basin should remain equal.
+% The size of the basins of the the different twists should remain equal.
 n = 20;
 x = zeros([1 n]);
 dt = 0.005;
