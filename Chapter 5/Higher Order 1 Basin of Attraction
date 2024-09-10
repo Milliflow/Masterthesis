@@ -6,14 +6,14 @@ Test = 11;
 c = zeros(6,Test+1); % chimera states in c(6,:)
 for lambda = 0:Test
     for Stat = 1:10000
-        x = 2*pi*(rand(n,1)-0.5); %q=0: 0.54 (bestätigt),0.54 (bestätigt),0.48 (bestätigt),0.44 (bestätigt!), q=1: 0.44, 0.44, 0.4, 0.38, q=2: 0.33 ///CHANGE: Higher Order 2: q=0: 0.54, 0.56, 0.59, 0.57, q=1: 0.44 , 0.38 , 0.34, 0.34, q=2: 0.33   
+        x = 2*pi*(rand(n,1)-0.5);
         x = dyKuramoto(x,lambda,dt,T);
         xend = x;
         qvec = zeros([1,n]);
         q = 0;
         qvec(n) = mod(pi+x(1)-x(n),2*pi)-pi;
         for i = 1:n-1
-            qvec(i) = q+mod(pi+x(i+1)-x(i),2*pi)-pi;%Detektion
+            qvec(i) = q+mod(pi+x(i+1)-x(i),2*pi)-pi; % detection
         end
         q = sum(qvec)/(2*pi);
         chimera = false;
