@@ -1,6 +1,6 @@
-q = 1;
-r = pi/10;
-for i = 1:400
+q = 1; % twist
+r = pi/10; % should translate to the discretized model with 20 nodes
+for i = 1:400 % combined with the next code line this translates to the intervall [0,4]
     x = i/100;
     k = 1;
     a(i) = (1+2*pi*x*V(r,q))*C1(q,1,r); % stores the highest eigenvalue for the q-twist
