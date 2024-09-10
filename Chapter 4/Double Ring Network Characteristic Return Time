@@ -5,11 +5,11 @@ b=0; % stores the highest eigenvalue for the 0-twist
 for i=1:400 % combined with the next code line this translates to the intervall [0,4]
     x=i/100;
     k = 1;
-    a(i)=max(real(Tra(q,k,x)/2+sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))),real(Tra(q,k,x)/2-sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))));
-    b(i)=max(real(Tra(0,k,x)/2+sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))),real(Tra(0,k,x)/2-sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))));
+    a(i)=max(real(Tra(q,k,x,r)/2+sqrt(Tra(q,k,x,r)^2/4-Dete(q,k,x,r))),real(Tra(q,k,x,r)/2-sqrt(Tra(q,k,x,r)^2/4-Dete(q,k,x,r))));
+    b(i)=max(real(Tra(0,k,x,r)/2+sqrt(Tra(0,k,x,r)^2/4-Dete(0,k,x,r))),real(Tra(0,k,x,r)/2-sqrt(Tra(0,k,x,r)^2/4-Dete(0,k,x,r))));
     for k = 2:5 % iterates through several k's to find the highest eigenvalue
-        achallenger=max(real(Tra(q,k,x)/2+sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))),real(Tra(q,k,x)/2-sqrt(Tra(q,k,x)^2/4-Dete(q,k,x))));
-        bchallenger=max(real(Tra(0,k,x)/2+sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))),real(Tra(0,k,x)/2-sqrt(Tra(0,k,x)^2/4-Dete(0,k,x))));
+        achallenger=max(real(Tra(q,k,x,r)/2+sqrt(Tra(q,k,x,r)^2/4-Dete(q,k,x,r))),real(Tra(q,k,x,r)/2-sqrt(Tra(q,k,x,r)^2/4-Dete(q,k,x,r))));
+        bchallenger=max(real(Tra(0,k,x,r)/2+sqrt(Tra(0,k,x,r)^2/4-Dete(0,k,x,r))),real(Tra(0,k,x,r)/2-sqrt(Tra(0,k,x,r)^2/4-Dete(0,k,x,r))));
         if a(i) < achallenger
             a(i)=achallenger;
         end
@@ -26,14 +26,14 @@ ylabel("quotient");
 title("Double Ring Network Characteristic Return Time quotient");
 
 
-function tr = Tra(q,k,x)
+function tr = Tra(q,k,x,r)
 % Calculates the trace
-    tr = C1(q,k,pi/3)+C1(q,k,pi/3)-2*V(x,q);
+    tr = C1(q,k,r(1))+C1(q,k,r(2))-2*V(x,q);
 end
 
-function det = Dete(q,k,x)
+function det = Dete(q,k,x,r)
 % Calculates the determinant
-    det = (C1(q,k,pi/3)-V(x,q))*(C1(q,k,pi/3)-V(x,q))-((V(x,q-k)+V(x,q+k))^2)/4;
+    det = (C1(q,k,r(1))-V(x,q))*(C1(q,k,r(2))-V(x,q))-((V(x,q-k)+V(x,q+k))^2)/4;
 end
 
 function c1 = C1(q,k,r)
