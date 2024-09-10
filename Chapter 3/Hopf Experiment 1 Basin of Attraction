@@ -1,4 +1,5 @@
-% What happens here? An assymetric domain is added to the normal nearest neighbour interaction domain, which grows in size.
+% What happens here? An assymetric domain is added to the normal nearest neighbour interaction domain, which grows in size (e.g .
+% more and more nodes interact with each other).
 % The size of the sync basin should grow towards 1 (the values in c(1,i)), while all the others towards zero.
 n = 20;
 x = zeros([1 n]);
