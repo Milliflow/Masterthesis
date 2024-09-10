@@ -1,7 +1,8 @@
 n = 4; % dimension
-c = 0; % counts how often the indicator in line 28 is positive
+c = 0; % counts how often the indicator in line 29 is positive
 d = 0; % counts how often the indicator is positive, but the configuration still returns to  [0 0 ... 0]
-splaystate = 0;
+splaystate = 0; % counts the number of splaystates for dimension 4 and in general the number of times, where
+% the configuration doesn't end up in [0 0 ... 0]
 T = 30000;
 dt = 0.005;
 for Stat = 1:10000
