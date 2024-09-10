@@ -1,20 +1,20 @@
 q = 1; % twist
 r = [pi/3 pi/3]; % the first number is r_{1,1}, the second one r_{2,2}
-a=0; % stores the highest eigenvalue for the q-twist
-b=0; % stores the highest eigenvalue for the 0-twist
-for i=1:400 % combined with the next code line this translates to the intervall [0,4]
-    x=i/100;
+a = 0; % stores the highest eigenvalue for the q-twist
+b = 0; % stores the highest eigenvalue for the 0-twist
+for i = 1:400 % combined with the next code line this translates to the intervall [0,4]
+    x = i/100;
     k = 1;
-    a(i)=max(real(Tra(q,k,x,r)/2+sqrt(Tra(q,k,x,r)^2/4-Dete(q,k,x,r))),real(Tra(q,k,x,r)/2-sqrt(Tra(q,k,x,r)^2/4-Dete(q,k,x,r))));
-    b(i)=max(real(Tra(0,k,x,r)/2+sqrt(Tra(0,k,x,r)^2/4-Dete(0,k,x,r))),real(Tra(0,k,x,r)/2-sqrt(Tra(0,k,x,r)^2/4-Dete(0,k,x,r))));
+    a(i) = max(real(Tra(q,k,x,r)/2+sqrt(Tra(q,k,x,r)^2/4-Dete(q,k,x,r))),real(Tra(q,k,x,r)/2-sqrt(Tra(q,k,x,r)^2/4-Dete(q,k,x,r))));
+    b(i) = max(real(Tra(0,k,x,r)/2+sqrt(Tra(0,k,x,r)^2/4-Dete(0,k,x,r))),real(Tra(0,k,x,r)/2-sqrt(Tra(0,k,x,r)^2/4-Dete(0,k,x,r))));
     for k = 2:5 % iterates through several k's to find the highest eigenvalue
-        achallenger=max(real(Tra(q,k,x,r)/2+sqrt(Tra(q,k,x,r)^2/4-Dete(q,k,x,r))),real(Tra(q,k,x,r)/2-sqrt(Tra(q,k,x,r)^2/4-Dete(q,k,x,r))));
-        bchallenger=max(real(Tra(0,k,x,r)/2+sqrt(Tra(0,k,x,r)^2/4-Dete(0,k,x,r))),real(Tra(0,k,x,r)/2-sqrt(Tra(0,k,x,r)^2/4-Dete(0,k,x,r))));
+        achallenger = max(real(Tra(q,k,x,r)/2+sqrt(Tra(q,k,x,r)^2/4-Dete(q,k,x,r))),real(Tra(q,k,x,r)/2-sqrt(Tra(q,k,x,r)^2/4-Dete(q,k,x,r))));
+        bchallenger = max(real(Tra(0,k,x,r)/2+sqrt(Tra(0,k,x,r)^2/4-Dete(0,k,x,r))),real(Tra(0,k,x,r)/2-sqrt(Tra(0,k,x,r)^2/4-Dete(0,k,x,r))));
         if a(i) < achallenger
-            a(i)=achallenger;
+            a(i) = achallenger;
         end
         if b(i) < bchallenger
-            b(i)=bchallenger;
+            b(i) = bchallenger;
         end
     end
 end
