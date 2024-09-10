@@ -5,7 +5,7 @@ for i = 1:1000
     k = 1;
     a(i) = C1(q,k,r)+2*x*(W(r,q,q-k)+W(r,q,q+k)-2*W(r,q,q)); % stores the highest eigenvalue for the q-twist
     b(i) = C1(q,k,r)+2*x*(W(r,0,-k)+W(r,0,k)-2*W(r,0,0)); % stores the highest eigenvalue for the 0-twist
-    for k = 2:5
+    for k = 2:5 % iterates through several k's to find the highest eigenvalue
         achallenger = C1(q,k,r)+2*x*(W(r,q,q-k)+W(r,q,q+k)-2*W(r,q,q));
         bchallenger = C1(q,k,r)+2*x*(W(r,0,-k)+W(r,0,k)-2*W(r,0,0));
         if a(i) < achallenger
