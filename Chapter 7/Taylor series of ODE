@@ -13,9 +13,12 @@ for i = 2:length(tay)
 end
 B = zeros(length(tay)); % stores the taylor coefficients of the products of the derivatives
 
-B(1,:) = fold(fold(A(1,:),A(1,:)),A(1,:));
-B(2,:) = fold(A(1,:),A(2,:));
-B(3,:) = A(3,:);
+B(1,:) = fold(fold(A(1,:),A(1,:)),A(1,:)); % taylor coefficients of x'^3
+B(2,:) = fold(A(1,:),A(2,:)); % taylor coefficients of x'*x''
+B(3,:) = A(3,:); % taylor coefficients of x'''
+% those taylor represenations have partially to be shifted too the right, due too the multiplication with x^n
+% the first coefficients of all representations should be in the same row; nullifying as much as possible
+% gives a system of linear equations
 
 function f = fold(a,b)
 % Calculates the Cauchy product of two taylor series a and b
