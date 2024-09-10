@@ -4,10 +4,10 @@ dt = 0.005;
 T = 30000;
 Test = 11;
 c = zeros(6,Test+1); % chimera states in c(6,:)
-for t = 0:Test
+for lambda = 0:Test
     for Stat = 1:10000
         x = 2*pi*(rand(n,1)-0.5); %q=0: 0.54 (bestätigt),0.54 (bestätigt),0.48 (bestätigt),0.44 (bestätigt!), q=1: 0.44, 0.44, 0.4, 0.38, q=2: 0.33 ///CHANGE: Higher Order 2: q=0: 0.54, 0.56, 0.59, 0.57, q=1: 0.44 , 0.38 , 0.34, 0.34, q=2: 0.33   
-        x = dyKuramoto(x,t,dt,T);
+        x = dyKuramoto(x,lambda,dt,T);
         xend = x;
         qvec = zeros([1,n]);
         q = 0;
@@ -24,13 +24,13 @@ for t = 0:Test
         end
         for j = 0:4
             if abs(abs(q)-j)<0.4 && chimera == false
-                c(j+1,t+1) = c(j+1,t+1)+1;
+                c(j+1,lambda+1) = c(j+1,lambda+1)+1;
             end
         end
         if chimera == true
-            c(6,t+1)=c(6,t+1)+1;
+            c(6,lambda+1)=c(6,lambda+1)+1;
         end
-        disp(c(:,t+1)/Stat);
+        disp(c(:,lambda+1)/Stat);
     end
 end
 disp(c);
