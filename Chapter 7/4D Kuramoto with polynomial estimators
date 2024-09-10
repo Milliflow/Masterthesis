@@ -1,6 +1,6 @@
-n = 4;
-c = 0;
-d = 0;
+n = 4; % dimension
+c = 0; % counts how often the indicator in line 28 is positive
+d = 0; % counts how often the indicator is positive, but the configuration still returns to  [0 0 ... 0]
 splaystate = 0;
 T = 30000;
 dt = 0.005;
