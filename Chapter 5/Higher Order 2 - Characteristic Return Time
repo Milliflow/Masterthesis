@@ -1,5 +1,5 @@
-q = 1;
-r = pi/10;
+q = 1; % twist
+r = pi/10; % should translate to the discretized model with 20 nodes
 for i = 1:1000
     x = i/100;
     k = 1;
