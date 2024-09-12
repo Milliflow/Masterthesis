@@ -3,46 +3,55 @@ m = 1000;
 A = zeros(m,m);
 n = 10;
 B = A;
+criticalValue = 0;
+criticalk = 0;
+flag = false;
 for i = 1:m
-    for j = 1:m
-        for k = 0:n
-            r = [pi*j/m pi*i/m];
-            z = c1Calc(q,k,r(1));
-            if z>0 && A(i,j)==0
-                A(i,j) = 1;
-                B(i,j) = -real(-1/2*(Vexp(q+k,r)+Vexp(-q+k,r)-3*(Vexp(q,r)+Vexp(-q,r))+3*(Vexp(q-k,r)+Vexp(-q-k,r))-(Vexp(q-2*k,r)+Vexp(-q-2*k,r))));
-                B(i,j) = B(i,j)+real(1/4*(Vexp(q-2*k,r)-Vexp(-q-2*k,r)-2*(Vexp(q-k,r)-Vexp(-q-k,r))+Vexp(q,r)-Vexp(-q,r))*(-Vexp(q-2*k,r)+Vexp(-q-2*k,r)+Vexp(q-k,r)-Vexp(-q-k,r)+Vexp(q,r)-Vexp(-q,r)-Vexp(q+k,r)+Vexp(-q+k,r))*1/(pi*(Vsin(q-k,r)+Vsin(q+k,r))-C1(q,2*k,r(1))-pi/2*(Vsin(q-2*k,r)+Vsin(q+2*k,r))));
-            end
+    if flag
+        break;
+    end
+    for k = 1:n
+        if flag
+            break;
+        end
+        r = pi*i/m;
+        z = c1Calc(q,k,r);
+        if z>0
+            criticalValue = i;
+            criticalk = k;
+            flag = true;
+            break;
         end
     end
 end
-for i = 1:m
-    for j = 6:m
-        if A(i,j) ~ 0
-            if A(i,j-5) == 0 && B(i,j)<0
-                B(i,j) = 2;
-                %B(i,j) = 1;
-            elseif A(i,j-5) == 0 && B(i,j)>0
-                B(i,j) = 4;
-            else
-                B(i,j) = 0;
-            end
-        end
+
+for i = criticalValue:criticalValue+4
+    for j = 1:m
+        k = criticalk;
+        r = [pi*i/m pi*j/m];
+        B(i,j) = -real(-1/2*(Vexp(q+k,r)+Vexp(-q+k,r)-3*(Vexp(q,r)+Vexp(-q,r))+3*(Vexp(q-k,r)+Vexp(-q-k,r))-(Vexp(q-2*k,r)+Vexp(-q-2*k,r))));
+        B(i,j) = B(i,j)+real(1/4*(Vexp(q-2*k,r)-Vexp(-q-2*k,r)-2*(Vexp(q-k,r)-Vexp(-q-k,r))+Vexp(q,r)-Vexp(-q,r))*(-Vexp(q-2*k,r)+Vexp(-q-2*k,r)+Vexp(q-k,r)-Vexp(-q-k,r)+Vexp(q,r)-Vexp(-q,r)-Vexp(q+k,r)+Vexp(-q+k,r))*1/(pi*(Vsin(q-k,r)+Vsin(q+k,r))-C1(q,2*k,r(1))-pi/2*(Vsin(q-2*k,r)+Vsin(q+2*k,r))));
+        
     end
 end
-for i = 1:m
-    for j = 1:m
-        if B(i,j) == 2
+
+% post-processing
+for j = 1:m
+    for i = 1:criticalValue-1
+        B(i,j) = 1;
+    end
+    for i = criticalValue:criticalValue+4
+        if B(i,j) < 0
             B(i,j) = 2;
-        elseif B(i,j) == 4
-            B(i,j) = 4;
-        elseif A(i,j) == 0
-            B(i,j) = 1;
         else
-            B(i,j) = 3;
+            B(i,j) = 4;
         end
     end
+    for i = criticalValue+5:m
+        B(i,j) = 3;
+    end
 end
+B = B';
 
 cmap = zeros(10, 3);
 cmap = [0, 1, 0; ...   % Blue for 1
