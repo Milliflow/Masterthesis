@@ -6,7 +6,7 @@ Test = 10;
 c = zeros(5,Test);
 for lambda = 1:Test % for lambda = 1 all rings will be independent -> random twists -> programm not suited for this
     for Stat = 1:1000
-        x = 2*pi*(rand(n,2)-0.5);
+        x = 2*pi*(rand(n,2)-0.5); % Random configuration
         x = dyKuramoto(x,lambda,dt,T); % Simulation
         q = zeros([0,2]);
         for j = 1:2
