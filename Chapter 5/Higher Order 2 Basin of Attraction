@@ -6,13 +6,13 @@ Test = 10;
 c = zeros(6,Test+1); % chimera states in c(6,:)
 for lambda = 0:Test
     for Stat = 1:10000
-        x = 2*pi*(rand(n,1)-0.5);
-        x = dyKuramoto(x,lambda,dt,T);
+        x = 2*pi*(rand(n,1)-0.5); % Random configuration
+        x = dyKuramoto(x,lambda,dt,T); % Simulation
         qvec = zeros([1,n]);
         q = 0;
         qvec(n) = mod(pi+x(1)-x(n),2*pi)-pi;
         for i = 1:n-1
-            qvec(i) = q+mod(pi+x(i+1)-x(i),2*pi)-pi; % detection
+            qvec(i) = q+mod(pi+x(i+1)-x(i),2*pi)-pi; % Detection
         end
         q = sum(qvec)/(2*pi);
         chimera = false;
