@@ -1,18 +1,18 @@
 n = 20;
 x = zeros([1 n]);
-dt = 0.005; % size of time-step
+dt = 0.005; % size of time-steps
 T = 30000; % number of time-steps; total times is dt*T
 Test = 10;
-c = zeros(6,Test+1); % stores size of basin of attraction
+c = zeros(6,Test+1); % stores sizes of the basins of attraction
 d = c; % stores return time
-store = 0;
+errorstore = 0;
 warning = false;
-for t = 0:Test
+for lambda = 0:Test
     retTime = 0;
     for Stat = 1:10000
         xstart = 2*pi*(rand(n,1)-0.5);
         x = xstart;
-        x = dyKuramoto(x,t,dt,T);%Simulation
+        x = dyKuramoto(x,lambda,dt,T);%Simulation
         q = 0;
         q = mod(pi+x(1)-x(n),2*pi)-pi;
         for i = 1:n-1
@@ -21,13 +21,13 @@ for t = 0:Test
         q = q/(2*pi);
         for j = 0:4
             if abs(abs(q)-j)<0.4
-                retTime = dyKuramoto2(xstart,q,t,dt,T);
+                retTime = dyKuramoto2(xstart,q,lambda,dt,T);
                 if retTime == T
                     warning = true;
-                    store = xstart;
+                    errorstore = xstart;
                 end
-                c(j+1,t+1) = c(j+1,t+1)+1;
-                d(j+1,t+1) = d(j+1,t+1)*(c(j+1,t+1)-1)/c(j+1,t+1)+dt*retTime/c(j+1,t+1);
+                c(j+1,t+1) = c(j+1,lambda+1)+1;
+                d(j+1,t+1) = d(j+1,lambda+1)*(c(j+1,lambda+1)-1)/c(j+1,lambda+1)+dt*retTime/c(j+1,lambda+1);
             end
         end
         disp(d);
