@@ -1,10 +1,10 @@
 n = 20;
 x = zeros([1 n]);
-dt = 0.005;
-T = 30000;
+dt = 0.005; % size of time-step
+T = 30000; % number of time-steps; total times is dt*T
 Test = 10;
-c = zeros(6,Test+1);
-d = c;
+c = zeros(6,Test+1); % stores size of basin of attraction
+d = c; % stores return time
 store = 0;
 warning = false;
 for t = 0:Test
@@ -30,7 +30,7 @@ for t = 0:Test
                 d(j+1,t+1) = d(j+1,t+1)*(c(j+1,t+1)-1)/c(j+1,t+1)+dt*retTime/c(j+1,t+1);
             end
         end
-        disp(d(:,t+1));
+        disp(d);
     end
 end
 disp(c);
