@@ -7,8 +7,9 @@ dt = 0.005; % size of time-step
 T = 30000; % number of iterations; total time is dt*T
 Test = 10;
 c = zeros(5,Test+1);
+NRuns = 1000; % number of runs
 for lambda = 0:Test
-    for Stat = 1:1000
+    for Stat = 1:NRuns
         x = 2*pi*(rand(n,1)-0.5); % random configuration
         x = dyKuramoto(x,lambda,dt,T); % simulation
         q = 0;
@@ -22,7 +23,9 @@ for lambda = 0:Test
                 c(j+1,lambda+1) = c(j+1,lambda+1)+1;
             end
         end
-        disp(c(:,lambda+1)./Stat);
+        calt = c./NRuns;
+        calt(:,lambda+1) = c(:,lambda+1)./Stat;
+        disp(calt);
     end
 end
 disp(c);
