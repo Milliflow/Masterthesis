@@ -4,8 +4,9 @@ dt = 0.005;
 T = 30000;
 Test = 10;
 c = zeros(6,Test+1); % chimera states in c(6,:)
+NRuns = 10000; % number of runs
 for lambda = 0:Test
-    for Stat = 1:10000
+    for Stat = 1:NRuns
         x = 2*pi*(rand(n,1)-0.5); % Random configuration
         x = dyKuramoto(x,lambda,dt,T); % Simulation
         qvec = zeros([1,n]);
@@ -29,7 +30,9 @@ for lambda = 0:Test
         if chimera == true
             c(6,lambda+1) = c(6,lambda+1)+1;
         end
-        disp(c(:,lambda+1)/Stat);
+        calt = c./NRuns;
+        calt(:,lambda+1) = c(:,lambda+1)./Stat;
+        disp(calt);
     end
 end
 disp(c);
