@@ -1,11 +1,13 @@
 m = 1000;
-%spherecoeff has a range of 1:m*1:21*1:21 which corresponds to
+% spherecoeff has a range of 1:m*1:21*1:21 which corresponds to
 % eigenfunctions from -10 to 10
+
+% First step: Calculating the fourier coefficients
 for a=1:m
     for i=1:21
         for j=1:21
             r = pi*a/m;
-            k = [i j]-[11 11];%(0 0) in Analyse=(11 11) im Array
+            k = [i j]-[11 11]; % (0 0) in analysis = (11 11) in the array
             if k ~ [0 0];
                 spherecoeff(a,i,j) = integral(@(x) sin(r*k(1)*sin(x)+r*k(2)*cos(x))./(k(1)*sin(x)+k(2)*cos(x)),0,2*pi);
             else
@@ -14,6 +16,8 @@ for a=1:m
         end
     end
 end
+
+% Second step: Calculating the stable zone and the bifurcation at the boundary
 A = zeros(m,m);
 B = A;
 n = 4;
