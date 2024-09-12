@@ -6,6 +6,8 @@ B = A;
 criticalValue = 0;
 criticalk = 0;
 flag = false;
+
+% pre-processing: only r_1 determines the stable zone
 for i = 1:m
     if flag
         break;
