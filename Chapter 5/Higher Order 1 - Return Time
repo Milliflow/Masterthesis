@@ -1,33 +1,33 @@
 n = 20;
 x = zeros([1 n]);
-dt = 0.005;
-T = 2000;
+dt = 0.005; % size of time-steps
+T = 30000; % number of time-steps
 Test = 10;
-c = zeros(6,Test+1);
-d = c;
-store = 0;
+c = zeros(6,Test+1); % stores the sizes of the basins of attractions
+d = c; % stores the return times
+errorstore = 0;
 warning = false;
-for t = 1:Test
+for lambda = 1:Test
     retTime = 0;
     for Stat = 1:10000
         xstart = 2*pi*(rand(n,1)-0.5); %q=0: 0.54 (bestätigt),0.54 (bestätigt),0.48 (bestätigt),0.44 (bestätigt!), q=1: 0.45, 0.44, 0.4, 0.39, q=2: 0.34
         x = xstart;
-        x = dyKuramoto(x,t,dt,T);%Simulation
+        x = dyKuramoto(x,lambda,dt,T); % simulation
         q = 0;
         q = mod(pi+x(1)-x(n),2*pi)-pi;
         for i = 1:n-1
-            q = q+mod(pi+x(i+1)-x(i),2*pi)-pi;%Detektion
+            q = q+mod(pi+x(i+1)-x(i),2*pi)-pi; % detection
         end
         q = q/(2*pi);
         for j = 0:4
             if abs(abs(q)-j)<0.4
-                retTime = dyKuramoto2(xstart,q,t,dt,T);
+                retTime = dyKuramoto2(xstart,q,lambda,dt,T);
                 if retTime == T
                     warning = true;
-                    store = xstart;
+                    errorstore = xstart;
                 end
-                c(j+1,t+1) = c(j+1,t+1)+1;
-                d(j+1,t+1) = d(j+1,t+1)*(c(j+1,t+1)-1)/c(j+1,t+1)+dt*retTime/c(j+1,t+1);
+                c(j+1,lambda+1) = c(j+1,lambda+1)+1;
+                d(j+1,lambda+1) = d(j+1,lambda+1)*(c(j+1,lambda+1)-1)/c(j+1,lambda+1)+dt*retTime/c(j+1,lambda+1);
             end
         end
         disp(d);
@@ -38,7 +38,7 @@ for i = 1:length(c)
     plot(i,c(i));
 end
 
-function y = dyKuramoto(x,lambda,dt,T)
+function y = dyKuramoto(x,lambda,dt,T) % returns the attractor
     yalt = [x x];
     yneu = yalt;
     n = 20;
@@ -51,7 +51,7 @@ function y = dyKuramoto(x,lambda,dt,T)
     y = yneu(1:length(x));
 end
 
-function ret = dyKuramoto2(x,q,lambda,dt,T)
+function ret = dyKuramoto2(x,q,lambda,dt,T) % returns the returntime
     yalt = [x x];
     b = false;
     n = length(x);
