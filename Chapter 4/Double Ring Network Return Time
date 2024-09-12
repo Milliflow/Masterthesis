@@ -53,7 +53,7 @@ for i = 1:5
 end
 hold 'off';
 
-function y = dyKuramoto(x,lambda,dt,T)
+function y = dyKuramoto(x,lambda,dt,T) % returns the attractor
     sz = size(x);
     n = sz(1);
     yalt = [x; x];
@@ -81,7 +81,7 @@ function y = dyKuramoto(x,lambda,dt,T)
     y = [y yneu(1:n,2)];
 end
 
-function ret = dyKuramoto2(x,q,lambda,dt,T)
+function ret = dyKuramoto2(x,q,lambda,dt,T) % returns the time it needs to get close enough to the attractor
     sz = size(x);
     n = sz(1);
     yalt = [x; x];
