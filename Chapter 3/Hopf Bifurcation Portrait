@@ -1,4 +1,4 @@
-q = 1;
+q = 1; % twist
 m = 1000;
 A = zeros(m,m);
 n = 10;
