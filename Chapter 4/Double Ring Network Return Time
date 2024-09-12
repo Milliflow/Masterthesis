@@ -22,7 +22,7 @@ for lambda = 1:Test
         end
         q = q./(2*pi);
         retTime = 0;
-        retTime = dyKuramoto2(xstart,q,t,dt,T);
+        retTime = dyKuramoto2(xstart,q,lambda,dt,T);
         if retTime == T
             warning = true;
             errorstore = xstart;
