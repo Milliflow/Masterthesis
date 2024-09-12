@@ -42,7 +42,7 @@ for t = 3:Test
                 d(j+1,t) = d(j+1,t)*(c(j+1,t)-1)/c(j+1,t)+dt*retTime/c(j+1,t);
             end
         end
-        disp(d(:,t));
+        disp(d);
     end
 end
 disp(d);
