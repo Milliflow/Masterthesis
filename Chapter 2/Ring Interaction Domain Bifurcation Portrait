@@ -21,26 +21,31 @@ end
 A = zeros(m,m);
 B = A;
 n = 4;
-q = [12 12]; % this is the [1 1] twist; [11 11] is equivalent to the [0,0] twist be beware of out of range errors if you set this value higher up
+q = [1 1]; % twist; please be beware of out of range errors if you set this value higher up
+qfA = q + [11 11]; % =qforArray; gives the twist in relation to the array (remember that the eigenfunction  [0 0] equals [11 11] there)
 for i=1:m
     for j=1:i-1
         for k1=-n:n
             for k2=0:n                
                 k = [k1 k2];
                 r = [i j];
-                z = spherecoeff(r(1),q(1)+k(1),q(2)+k(2))+spherecoeff(r(1),q(1)-k(1),q(2)-k(2))-2*spherecoeff(r(1),q(1),q(2))-spherecoeff(r(2),q(1)+k(1),q(2)+k(2))-spherecoeff(r(2),q(1)-k(1),q(2)-k(2))+2*spherecoeff(r(2),q(1),q(2));
+                % Please notice that in the following for z, c1, c2, c3 and c5 we not only have to calculate the values for a circle, but also subtract the values for the
+                % smaller circle, hence exactly double as many terms as usual occur, the first ones with r(1), the second ones with r(2)
+                z = spherecoeff(r(1),qfA(1)+k(1),qfA(2)+k(2))+spherecoeff(r(1),qfA(1)-k(1),qfA(2)-k(2))-2*spherecoeff(r(1),qfA(1),qfA(2))-spherecoeff(r(2),qfA(1)+k(1),qfA(2)+k(2))-spherecoeff(r(2),qfA(1)-k(1),qfA(2)-k(2))+2*spherecoeff(r(2),qfA(1),qfA(2));
                 if z>0
                     A(i,j) = 1;
-                    c1 = (spherecoeff(r(1),q(1)+2*k(1),q(2)+2*k(2))+spherecoeff(r(1),q(1)-2*k(1),q(2)-2*k(2))-2*spherecoeff(r(1),q(1),q(2)))/(2*pi)-(spherecoeff(r(2),q(1)+2*k(1),q(2)+2*k(2))+spherecoeff(r(2),q(1)-2*k(1),q(2)-2*k(2))-2*spherecoeff(r(2),q(1),q(2)))/(2*pi);
-                    c2 = (-spherecoeff(r(1),q(1)-2*k(1),q(2)-2*k(2))+2*spherecoeff(r(1),q(1)-k(1),q(2)-k(2))-2*spherecoeff(r(1),q(1)+k(1),q(2)+k(2))+spherecoeff(r(1),q(1)+2*k(1),q(2)+2*k(2)))/(4*pi)-(-spherecoeff(r(2),q(1)-2*k(1),q(2)-2*k(2))+2*spherecoeff(r(2),q(1)-k(1),q(2)-k(2))-2*spherecoeff(r(2),q(1)+k(1),q(2)+k(2))+spherecoeff(r(2),q(1)+2*k(1),q(2)+2*k(2)))/(4*pi);
-                    c3 = (-spherecoeff(r(1),q(1)-2*k(1),q(2)-2*k(2))+spherecoeff(r(1),q(1)-2*k(1)+k(1),q(2)-2*k(2)+k(2))+spherecoeff(r(1),q(1)-k(1),q(2)-k(2))+spherecoeff(r(1),q(1)+2*k(1),q(2)+2*k(2))-spherecoeff(r(1),q(1)+2*k(1)-k(1),q(2)+2*k(2)-k(2))-spherecoeff(r(1),q(1)+k(1),q(2)+k(2)))/(4*pi)-(-spherecoeff(r(2),q(1)-2*k(1),q(2)-2*k(2))+spherecoeff(r(2),q(1)-2*k(1)+k(1),q(2)-2*k(2)+k(2))+spherecoeff(r(2),q(1)-k(1),q(2)-k(2))+spherecoeff(r(2),q(1)+2*k(1),q(2)+2*k(2))-spherecoeff(r(2),q(1)+2*k(1)-k(1),q(2)+2*k(2)-k(2))-spherecoeff(r(2),q(1)+k(1),q(2)+k(2)))/(4*pi);
-                    c5 = (spherecoeff(r(1),q(1)-2*k(1),q(2)-2*k(2))-4*spherecoeff(r(1),q(1)-k(1),q(2)-k(2))+6*spherecoeff(r(1),q(1),q(2))-4*spherecoeff(r(1),q(1)+k(1),q(2)+k(2))+spherecoeff(r(1),q(1)+2*k(1),q(2)+2*k(2)))/(8*pi)-(spherecoeff(r(2),q(1)-2*k(1),q(2)-2*k(2))-4*spherecoeff(r(2),q(1)-k(1),q(2)-k(2))+6*spherecoeff(r(2),q(1),q(2))-4*spherecoeff(r(2),q(1)+k(1),q(2)+k(2))+spherecoeff(r(2),q(1)+2*k(1),q(2)+2*k(2)))/(8*pi);
+                    c1 = (spherecoeff(r(1),qfA(1)+2*k(1),qfA(2)+2*k(2))+spherecoeff(r(1),qfA(1)-2*k(1),qfA(2)-2*k(2))-2*spherecoeff(r(1),qfA(1),qfA(2)))/(2*pi)-(spherecoeff(r(2),qfA(1)+2*k(1),qfA(2)+2*k(2))+spherecoeff(r(2),qfA(1)-2*k(1),qfA(2)-2*k(2))-2*spherecoeff(r(2),qfA(1),qfA(2)))/(2*pi);
+                    c2 = (-spherecoeff(r(1),qfA(1)-2*k(1),qfA(2)-2*k(2))+2*spherecoeff(r(1),qfA(1)-k(1),qfA(2)-k(2))-2*spherecoeff(r(1),qfA(1)+k(1),qfA(2)+k(2))+spherecoeff(r(1),qfA(1)+2*k(1),qfA(2)+2*k(2)))/(4*pi)-(-spherecoeff(r(2),qfA(1)-2*k(1),qfA(2)-2*k(2))+2*spherecoeff(r(2),qfA(1)-k(1),qfA(2)-k(2))-2*spherecoeff(r(2),qfA(1)+k(1),qfA(2)+k(2))+spherecoeff(r(2),qfA(1)+2*k(1),qfA(2)+2*k(2)))/(4*pi);
+                    c3 = (-spherecoeff(r(1),qfA(1)-2*k(1),qfA(2)-2*k(2))+spherecoeff(r(1),qfA(1)-2*k(1)+k(1),qfA(2)-2*k(2)+k(2))+spherecoeff(r(1),qfA(1)-k(1),qfA(2)-k(2))+spherecoeff(r(1),qfA(1)+2*k(1),qfA(2)+2*k(2))-spherecoeff(r(1),qfA(1)+2*k(1)-k(1),qfA(2)+2*k(2)-k(2))-spherecoeff(r(1),qfA(1)+k(1),qfA(2)+k(2)))/(4*pi)-(-spherecoeff(r(2),qfA(1)-2*k(1),qfA(2)-2*k(2))+spherecoeff(r(2),qfA(1)-2*k(1)+k(1),qfA(2)-2*k(2)+k(2))+spherecoeff(r(2),qfA(1)-k(1),qfA(2)-k(2))+spherecoeff(r(2),qfA(1)+2*k(1),qfA(2)+2*k(2))-spherecoeff(r(2),qfA(1)+2*k(1)-k(1),qfA(2)+2*k(2)-k(2))-spherecoeff(r(2),qfA(1)+k(1),qfA(2)+k(2)))/(4*pi);
+                    c5 = (spherecoeff(r(1),qfA(1)-2*k(1),qfA(2)-2*k(2))-4*spherecoeff(r(1),qfA(1)-k(1),qfA(2)-k(2))+6*spherecoeff(r(1),qfA(1),qfA(2))-4*spherecoeff(r(1),qfA(1)+k(1),qfA(2)+k(2))+spherecoeff(r(1),qfA(1)+2*k(1),qfA(2)+2*k(2)))/(8*pi)-(spherecoeff(r(2),qfA(1)-2*k(1),qfA(2)-2*k(2))-4*spherecoeff(r(2),qfA(1)-k(1),qfA(2)-k(2))+6*spherecoeff(r(2),qfA(1),qfA(2))-4*spherecoeff(r(2),qfA(1)+k(1),qfA(2)+k(2))+spherecoeff(r(2),qfA(1)+2*k(1),qfA(2)+2*k(2)))/(8*pi);
                    B(i,j) = c5-c2*c3/c1;
                 end
             end
         end
     end
 end
+
+% post-processing
 for i = 1:m
     for j = 1:m
         if(i<=j)
