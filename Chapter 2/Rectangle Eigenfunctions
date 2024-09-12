@@ -2,25 +2,25 @@
 
 q = [1 1]; % twist
 m = 1000; % resolution
-A=zeros(m,m);
+Stable = zeros(m,m); % is zero in the stable zone, otherwise 1
 n = 10;
-C1max = A-10; % stores the maximal eigenvalue
-D = A; % stores the corresponding eigenfunction
-for i=1:m
-    for j=1:m
-        for k1=0:n
-            for k2=-n:n
+C1max = zeros(m,m)-10; % stores the maximal eigenvalue
+BiggestFunction = zeros(m,m); % stores the corresponding eigenfunction
+for i = 1:m
+    for j = 1:m
+        for k1 = 0:n
+            for k2 = -n:n
                 k = [k1 k2];
                 r = [pi*i/m pi*j/m];
                 z = C1(q,k,r);
-                if k1~=0 || k2~=0
-                    if C1max(i,j)<z
-                        C1max(i,j)=z;
-                        D(i,j)=10*abs(k1)+abs(k2);
+                if k1 ~= 0 || k2 ~= 0
+                    if C1max(i,j) < z
+                        C1max(i,j) = z;
+                        BiggestFunction(i,j) = 10*abs(k1)+abs(k2);
                     end
                 end
-                if z>0 && A(i,j)==0
-                    A(i,j) = 1;
+                if z > 0 && Stable(i,j) == 0
+                    Stable(i,j) = 1;
                 end
             end
         end
@@ -30,31 +30,31 @@ end
 % post-processing
 for i = 1:m
     for j = 1:m
-        if A(i,j)~=0
-            C1max(i,j)=99;
-            D(i,j)=0;
+        if Stable(i,j) ~= 0
+            C1max(i,j) = 99;
+            BiggestFunction(i,j) = 0;
         end
     end
 end
 for i = 1:m
     for j = 1:m
-        if D(i,j)==0
-            D(i,j)=0;
-        elseif D(i,j)==1
-            D(i,j)=1;
-        elseif D(i,j)==10
-            D(i,j)=2;
-        elseif D(i,j)==11
-            D(i,j)=3;
-        elseif D(i,j)==12
-            D(i,j)=4;
-        elseif D(i,j)==21
-            D(i,j)=5;
+        if BiggestFunction(i,j) == 0
+            BiggestFunction(i,j) = 0;
+        elseif BiggestFunction(i,j) == 1
+            BiggestFunction(i,j) = 1;
+        elseif BiggestFunction(i,j) == 10
+            BiggestFunction(i,j) = 2;
+        elseif BiggestFunction(i,j) == 11
+            BiggestFunction(i,j) = 3;
+        elseif BiggestFunction(i,j) == 12
+            BiggestFunction(i,j) = 4;
+        elseif BiggestFunction(i,j) == 21
+            BiggestFunction(i,j) = 5;
         end
     end
 end
-A = A';
-B = D';
+Stable = Stable';
+B = BiggestFunction';
 cmap = zeros(10, 6);
 cmap = [1, 0, 0; ...   % Red for 0
   0, 0.8, 0; ...       % lightgreen 1
