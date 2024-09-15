@@ -31,6 +31,7 @@ for i = criticalValue:criticalValue+4
     for j = 1:m
         k = criticalk;
         r = [pi*i/m pi*j/m];
+        % bifurcation formula
         B(i,j) = -real(-1/2*(Vexp(q+k,r)+Vexp(-q+k,r)-3*(Vexp(q,r)+Vexp(-q,r))+3*(Vexp(q-k,r)+Vexp(-q-k,r))-(Vexp(q-2*k,r)+Vexp(-q-2*k,r))));
         B(i,j) = B(i,j)+real(1/4*(Vexp(q-2*k,r)-Vexp(-q-2*k,r)-2*(Vexp(q-k,r)-Vexp(-q-k,r))+Vexp(q,r)-Vexp(-q,r))*(-Vexp(q-2*k,r)+Vexp(-q-2*k,r)+Vexp(q-k,r)-Vexp(-q-k,r)+Vexp(q,r)-Vexp(-q,r)-Vexp(q+k,r)+Vexp(-q+k,r))*1/(pi*(Vsin(q-k,r)+Vsin(q+k,r))-C1(q,2*k,r(1))-pi/2*(Vsin(q-2*k,r)+Vsin(q+2*k,r))));
         
