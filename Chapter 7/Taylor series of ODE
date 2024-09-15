@@ -5,7 +5,7 @@ for i = 2:length(tay)
     z = A(i-1,:);
     z = circshift(z,-1);
     for n = 1:length(z)-1
-        z(n)=n*z(n);
+        z(n) = n*z(n);
     end
     z(length(z)) = 0;
     z = fold(z,tay);
@@ -23,9 +23,9 @@ B(3,:) = A(3,:); % taylor coefficients of x'''
 function f = fold(a,b)
 % Calculates the Cauchy product of two taylor series a and b
     f = zeros(length(a),1);
-    for i=1:length(a)
-        for j =1:i
-            f(i)=f(i)+a(j)*b(i-j+1);
+    for i = 1:length(a)
+        for j   =1:i
+            f(i) = f(i)+a(j)*b(i-j+1);
         end
     end
 end
