@@ -12,6 +12,7 @@ for i = 1:m
             z = C1(q,k,r) + 2*lambda*(W(r,q,q-k)+W(r,q,q+k)-2*W(r,q,q));
             if z > 0 && A(i,l) == 0
                 A(i,l) = 1;
+                % bifurcation formula
                 c = C5(q,k,r) + lambda*(3*pi^2/4*(2*(W(r,q,q-2*k)-W(r,q,q-k)+W(r,q,q)-W(r,q,q+k)+W(r,q,q+2*k))-W(r,k-q,q-k)+W(r,k+q,q-k)+W(r,k-q,k+q)-W(r,q+k,q+k)-W(r,k-q,q+2*k)+W(r,k+q,q+2*k)+W(r,k-q,q-2*k)-W(r,k+q,q-2*k)));
                 B(i,l) = c - C2(q,k,r)*C3(q,2*k,k,r)/(C1(q,2*k,r)+2*lambda*(W(r,q,q-2*k)+W(r,q,q+2*k)-2*W(r,q,q)));
             end
