@@ -3,7 +3,7 @@
 % this colormap is not yet suited for the occurence of supercritical
 % bifurcations, in the case other q are choosen
 
-q = [1 1];
+q = [1 1]; % twist
 m = 1000; % resolution
 A=zeros(m,m); % stores eigenvalues above 0
 n = 10; % number of analyzed eigenfunctions
