@@ -47,7 +47,7 @@ for lambda = 1:Test
 end
 disp(d);
 hold 'off';
-for i = 1:5
+for i = 1:length(d)
     plot(d(i,:));
     hold 'on';
 end
