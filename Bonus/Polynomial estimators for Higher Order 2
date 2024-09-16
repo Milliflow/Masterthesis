@@ -1,4 +1,4 @@
-% The polynomial estimator [P1 or P2] is extremly good, [P1 or P2 or P3]
+% The polynomial estimator [P1] is extremly good, [P1 or P2] is okay, [P1 or P2 or P3]
 % is mediocre.
 
 n = 4;
@@ -29,7 +29,7 @@ for k = 1:10000
     for m = 1:n
         p3 = p3+x(m)*((x(m)*x(m))*(a3(m)-3*a2(m)+3*a1(m)-x(m))-5*x(m)*((a1(m)-x(m))*(a2(m)+x(m)-2*a1(m)))+4*(a1(m)-x(m))*((a1(m)-x(m))*(a1(m)-x(m))));
     end
-    if p1>0 || p2>0
+    if p1>0
         c = c+1;
         if max(y) < 0.1
             d = d+1;
