@@ -37,9 +37,12 @@ for lambda = 0:Test
     end
 end
 disp(c);
-for i = 1:length(c)
-    plot(i,c(i));
+hold 'off';
+for i = 1:5
+    plot(c(i,:));
+    hold 'on';
 end
+hold 'off';
 
 function y = dyKuramoto(x,lambda,dt,T)
     yalt = [x x];
