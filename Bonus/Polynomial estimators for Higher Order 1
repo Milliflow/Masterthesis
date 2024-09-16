@@ -1,0 +1,57 @@
+% The polynomial estimator [P1 or P2] is quite good, [P1 or P2 or P3]
+% is a bad estimation.
+
+n = 4;
+lambda = 4;
+c = 0;
+d = 0;
+splaystate = 0;
+T = 30000;
+dt = 0.005;
+for k = 1:10000
+    x = 2*pi*(rand(n-1,1)-0.5);
+    x = [x; -sum(x)]; % To ensure that the configuration can converge towards [0 0 ... 0]
+    y = x;
+    for j = 1:T         
+        y = KurSchritt(y,dt,lambda);
+    end
+    if max(y) > 0.1
+        splaystate = splaystate+1;
+    end
+    a1 = KurSchritt(x,dt,lambda);
+    a2 = KurSchritt(a1,dt,lambda);
+    a3 = KurSchritt(a2,dt,lambda);
+    d1 = a1-x;
+    d2 = a2+x-2*a1;
+    p1 = d1'*x;
+    p2 = d2'*x-d1'*d1;
+    p3 = 0;
+    for m = 1:n
+        p3 = p3+x(m)*((x(m)*x(m))*(a3(m)-3*a2(m)+3*a1(m)-x(m))-5*x(m)*((a1(m)-x(m))*(a2(m)+x(m)-2*a1(m)))+4*(a1(m)-x(m))*((a1(m)-x(m))*(a1(m)-x(m))));
+    end
+    if p1>0 || p2>0
+        c = c+1;
+        if max(y) < 0.1
+            d = d+1;
+        end
+        disp("Splaystate probability: "+splaystate/k);
+        disp("Indicator negative: "+c/k);
+        disp("Failed: "+d/c);
+    end
+end
+
+function y = KurSchritt(x,dt,lambda)
+y = x;
+n = length(x);
+    if n>2
+        for i = 2:n-1
+            y(i) = x(i)+dt*(sin(x(i-1)-x(i))+sin(x(i+1)-x(i))+lambda*(2*sin(x(i+1)-x(i))+2*sin(x(i-1)-x(i))+2*sin(x(i+1)+x(i-1)-2*x(i))+sin(2*x(i+1)-2*x(i))+sin(2*x(i-1)-2*x(i))));
+        end
+        y(1) = x(1)+dt*(sin(x(n)-x(1))+sin(x(2)-x(1))+lambda*(2*sin(x(2)-x(1))+2*sin(x(n)-x(1))+2*sin(x(2)+x(n)-2*x(1))+sin(2*x(2)-2*x(1))+sin(2*x(n)-2*x(1))));
+        y(n) = x(n)+dt*(sin(x(n-1)-x(n))+sin(x(1)-x(n))+lambda*(2*sin(x(1)-x(n))+2*sin(x(n-1)-x(n))+2*sin(x(1)+x(n-1)-2*x(n))+sin(2*x(1)-2*x(n))+sin(2*x(n-1)-2*x(n))));
+    elseif n == 2
+        a = x(1)+2*dt*sin(x(2)-x(1));
+        b = x(2)+2*dt*sin(x(1)-x(2));
+        y = [a; b];
+    end
+end
