@@ -16,12 +16,16 @@ for lambda = 0:Test
             qvec(i) = q+mod(pi+x(i+1)-x(i),2*pi)-pi; % Detection
         end
         q = sum(qvec)/(2*pi);
+
+        % chimera detection
         chimera = false;
         for i = 1:n
             if abs(q-n*qvec(i)/(2*pi))>0.1
                 chimera = true;
             end
         end
+
+        % twist detection
         for j = 0:4
             if abs(abs(q)-j)<0.4 && chimera == false
                 c(j+1,lambda+1) = c(j+1,lambda+1)+1;
