@@ -1,3 +1,7 @@
+% What happens here? The sizes of the basins of attractions are simulated for the Kuramoto model
+% with the first Higher Order interactions. Varying the lambda shouldn't have much effect on the
+% basin sizes.
+
 n = 20;
 x = zeros([1 n]);
 dt = 0.005; % size of time-step
