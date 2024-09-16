@@ -1,14 +1,14 @@
 q = 1;
 m = 1000;
-A=zeros(m,m);
+A = zeros(m,m);
 n = 10;
-for i=1:m
-    for j=1:m
-        for k=1:n                
+for i = 1:m
+    for j = 1:m
+        for k = 1:n                
             r = [pi*i/m pi*j/m];
             Tr = C1(q,k,pi/3)+C1(q,k,r(1))-2*pi*V(r(2),q);
             Det = (C1(q,k,pi/3)-pi*V(r(2),q))*(C1(q,k,r(1))-pi*V(r(2),q))-pi^2*((V(r(2),q-k)+V(r(2),q+k))^2)/4;
-            if [Tr>0 || Det<0] && A(i,j)==0
+            if [Tr>0 || Det<0] && A(i,j) == 0
                 A(i,j) = 1;
             end
         end
