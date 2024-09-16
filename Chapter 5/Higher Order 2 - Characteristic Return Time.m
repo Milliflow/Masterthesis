@@ -16,7 +16,7 @@ for i = 1:1000 % combined with the next code line this translates to the interva
         end
     end
 end
-plot(a./b); & plots the quotient; for the other graphs, plot -1./a and -1./b
+plot(a./b); % plots the quotient; for the other graphs, plot -1./a and -1./b
 xt = get(gca, 'XTick');
 set(gca, 'XTick', xt, 'XTickLabel', xt/100)
 xlabel("\lambda");
