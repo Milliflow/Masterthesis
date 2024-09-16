@@ -41,7 +41,7 @@ for lambda = 0:Test
 end
 disp(c);
 hold 'off';
-for i = 1:5
+for i = 1:6
     plot(c(i,:));
     hold 'on';
 end
