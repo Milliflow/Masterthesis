@@ -8,7 +8,7 @@ for i = 1:m
         for k1 = 0:n
             k = [k1];
             r = [pi*i/m];
-            lambda = l/100-3;
+            lambda = l/100-3; % shifted, with the current values the [-3,7]-domain of lambda is analyzed
             z = (1+2*pi*lambda*V(r,q))*C1(q,k,r);
             if z > 0 && A(i,l) == 0
                 A(i,l) = 1;
