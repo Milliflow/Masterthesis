@@ -2,7 +2,7 @@
 % is mediocre.
 
 n = 4;
-lambda = 4;
+lambda = 1;
 c = 0;
 d = 0;
 splaystate = 0;
