@@ -1,3 +1,7 @@
+% What happens here? The sizes of the basins of attractions are simulated for the Kuramoto model
+% with two connected ring networks. For large lambda (the size of the connecting interaction domain)
+% almost all configurations should converge towards a 0-twisted state.
+
 n = 20;
 x = zeros(n,2);
 dt = 0.005; % size of time-step
