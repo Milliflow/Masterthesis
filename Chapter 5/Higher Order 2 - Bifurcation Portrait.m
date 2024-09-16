@@ -1,9 +1,9 @@
 % blue is the stable, yellow the instable region
 q = 1; % twist
 m = 1000;
-A = zeros(m,m);
+A = zeros(m,m); % stores the stable region
 n = 10;
-B = A;
+B = A; % stores the bifurcation values
 for i = 1:m
     for l = 1:m
         for k = 1:10
@@ -19,6 +19,8 @@ for i = 1:m
         end
     end
 end
+
+% post-processing
 for i = 6:m-5
     for lambda = 6:m-5
         if A(i,lambda) ~ 0
