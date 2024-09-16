@@ -33,7 +33,7 @@ for lambda = 1:Test % for lambda = 1 all rings will be independent -> random twi
         disp(calt);
     end
 end
-disp(c)
+disp(c);
 hold 'off';
 for i = 1:5
     plot(c(i,:));
