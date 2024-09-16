@@ -35,7 +35,7 @@ for k = 1:10000
             d = d+1;
         end
         disp("Splaystate probability: "+splaystate/k);
-        disp("Indicator negative: "+c/k);
+        disp("Indicator positive: "+c/k);
         disp("Failed: "+d/c);
     end
 end
