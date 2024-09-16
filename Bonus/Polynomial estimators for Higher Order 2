@@ -1,5 +1,5 @@
 % The polynomial estimator [P1 or P2] is extremly good, [P1 or P2 or P3]
-% is okay.
+% is mediocre.
 
 n = 4;
 lambda = 4;
