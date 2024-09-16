@@ -1,4 +1,4 @@
-% The polynomial estimator [P1 or P2] is quite good, [P1 or P2 or P3]
+% The polynomial estimator [P1 or P2] is okay, [P1 or P2 or P3]
 % is a bad estimation.
 
 n = 4;
