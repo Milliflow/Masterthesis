@@ -5,7 +5,7 @@
 
 q = [1 1]; % twist
 m = 1000; % resolution
-A=zeros(m,m); % stores eigenvalues above 0
+A = zeros(m,m); % stores eigenvalues above 0
 n = 10; % number of analyzed eigenfunctions
 B = ones(m,m); % stores bifurcation values
 for i=1:m
