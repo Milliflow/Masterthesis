@@ -1,9 +1,13 @@
+% What happens here? The sizes of the basins of attractions are simulated for the Kuramoto model
+% with the second Higher Order interactions. For large lambda a limit should be approached, where all
+% configurations either converge towards a 0- or 1-twisted state.
+
 n = 20;
 x = zeros([1 n]);
 dt = 0.005; % size of time-step
 T = 30000; % number of runs; total time is dt*T
 Test = 10;
-c = zeros(6,Test+1); % chimera states in c(6,:)
+c = zeros(6,Test+1); % stores the sizes of the basins of attracion; chimera states in c(6,:)
 NRuns = 10000; % number of runs
 for lambda = 0:Test
     for Stat = 1:NRuns
