@@ -8,14 +8,14 @@ m = 1000; % resolution
 A = zeros(m,m); % stores eigenvalues above 0
 n = 10; % number of analyzed eigenfunctions
 B = ones(m,m); % stores bifurcation values
-for i=1:m
-    for j=1:m
-        for k1=0:n
-            for k2=-n:n
+for i = 1:m
+    for j = 1:m
+        for k1 = 0:n
+            for k2 = -n:n
                 k = [k1 k2];
                 r = [pi*i/m pi*j/m];
                 z = C1(q,k,r); % respective eigenvalue
-                if z>0 && A(i,j)==0
+                if z>0 && A(i,j) == 0
                     A(i,j) = 1;
                     B(i,j) = C5(q,k,r)-C2(q,k,r)*C3(q,2*k,k,r)/C1(q,2*k,r); % bifurcation formula
                 end
@@ -30,27 +30,27 @@ for i = 1:m
         if A(i,j)~0
             if i>5 && j>5
                 if A(i-5,j-5)==0 && B(i,j)>0
-                    B(i,j)=2;
+                    B(i,j) = 2;
                 elseif A(i-5,j-5)==0
-                    B(i,j)=4;
+                    B(i,j) = 4;
                 else
-                    B(i,j)=3;
+                    B(i,j) = 3;
                 end
             elseif i<6 && j>5
                 if A(i,j-5)==0 && B(i,j)>0
-                    B(i,j)=2;
+                    B(i,j) = 2;
                 elseif A(i,j-5)==0
-                    B(i,j)=4;
+                    B(i,j) = 4;
                 else
-                    B(i,j)=3;
+                    B(i,j) = 3;
                 end
             else
                 if A(i-5,j)==0 && B(i,j)>0
-                    B(i,j)=2;
+                    B(i,j) = 2;
                 elseif A(i-5,j)==0
-                    B(i,j)=4;
+                    B(i,j) = 4;
                 else
-                    B(i,j)=3;
+                    B(i,j) = 3;
                 end
             end
         end
