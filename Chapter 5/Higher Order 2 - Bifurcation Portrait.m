@@ -120,7 +120,6 @@ function v = W(r,q,k)
     if q==0 && k == 0
         v = 3*r^2;
     elseif q == 0 && k~=0
-        %v = 3*r*2*(sin(k*r/2)/k)*cos(k*r/2)+2*sin(k*r/2)*(2*sin(k*r/2)-k*r*cos(k*r/2))/(k^2);%3*pi*r*W2(r/2,k)*cos(k*r/2)+2*sin(k*r/2)*(2*sin(k*r/2)-k*r*cos(k*r/2))/(k^2);
         v = 3*pi*r*V(r/2,k)*cos(k*r/2)+2*sin(k*r/2)*(2*sin(k*r/2)-k*r*cos(k*r/2))/(k^2);
     elseif k == 0 && q~=0
         v = 3*pi*r*V(r/2,q)*cos(q*r/2)+2*sin(q*r/2)*(2*sin(q*r/2)-q*r*cos(q*r/2))/(q^2);
