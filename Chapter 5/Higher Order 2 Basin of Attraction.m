@@ -49,7 +49,7 @@ function y = dyKuramoto(x,lambda,dt,T)
     n = length(x);
     for t = 1:T
         for i = 1:n
-            yneu(i) = yneu(i)+dt*(sin(yalt(i+1)-yalt(i))+sin(yalt(i+n-1)-yalt(i))+lambda*(2*sin(yalt(i+1)-yalt(i))+2*sin(yalt(i+n-1)-yalt(i))+0*sin(yalt(i+1)+yalt(i+n-1)-2*yalt(i))+sin(2*yalt(i+1)-2*yalt(i))+sin(2*yalt(i+n-1)-2*yalt(i))));
+            yneu(i) = yneu(i)+dt*(sin(yalt(i+1)-yalt(i))+sin(yalt(i+n-1)-yalt(i))+lambda*(2*sin(yalt(i+1)-yalt(i))+2*sin(yalt(i+n-1)-yalt(i))+sin(2*yalt(i+1)-2*yalt(i))+sin(2*yalt(i+n-1)-2*yalt(i))));
         end
         yalt = [yneu(1:n) yneu(1:n)];
     end
